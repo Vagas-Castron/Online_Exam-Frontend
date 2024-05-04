@@ -1,0 +1,656 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+#root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* grid-template-rows: 5.5rem auto 3.5rem;
+    grid-template-areas: "HH"
+                         "MM"
+                         "FF"; */
+    background-color: #B4A5A5;
+    transition: all 0.5s ease-in;
+}
+
+body {
+    line-height: 1.5;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+
+.header-container {
+    grid-area: HH;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 5.5rem;
+    padding: 1.5rem;
+    top: 0;
+    box-shadow: 2px 2px 4px hsla(0, 0%, 0%, 0.164);
+    background-color: white;
+}
+
+.header-nav > ul{
+    display: flex;
+    gap: 1rem;
+    list-style-type: none;
+    align-items: center;
+    font-size: 1.15rem;
+}
+
+.header-nav li {
+    padding: 0.3rem;
+}
+
+.logout-btn {
+    cursor: pointer;
+    border: 1px solid #33333300;
+}
+
+.logout-btn:hover {
+    border: 1px solid #333;
+    
+}
+
+.logo-container {
+    margin-left: 2rem;
+}
+
+.nav-container {
+    /* margin-right: 1rem; */
+}
+
+
+.footer-container {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    color: whitesmoke;
+    background-color: #2c206b;
+}
+
+.content-container {
+    gap: 0.5rem;
+    padding: 1rem;
+    width: 80%;
+    position: relative;
+    margin: 4rem auto;
+    
+}
+
+.questions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-container {
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.226);
+    width: max(40%, 250px);
+    height: fit-content;
+    justify-self: center;
+    background-color: rgb(255, 255, 255);
+    margin: 2rem auto 0;
+    padding: 2rem; 
+
+}
+
+.wrapper-container {
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+}
+
+/* .header {
+    width: 50%;
+} */
+
+.start-container {
+    align-self: center;
+    justify-self: center;
+}
+
+.user-nav-container {
+    margin-top: 1.5rem;
+    position: fixed;
+    top: 25%;
+    border-right: 2px solid grey;
+}
+
+.user-nav-container ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    list-style-type: none;
+}
+
+.user-nav-container ul li {
+    padding: 1rem;
+    border-bottom: 2px solid grey;
+    display: block;
+}
+
+.user-nav-container a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.user-nav-container a:hover {
+    text-decoration: underline #ee7410 2px;
+}
+
+.user-nav-container h3 {
+    padding: 1rem;
+    border-bottom: 2px solid grey;
+    border-top: 2px solid grey;
+    background-color: #5739fc;
+    color: whitesmoke;
+}
+
+.user-nav-container:hover h3{
+    color: #333;
+    background-color: white;
+}
+
+.question-form {
+    width: 60%;
+    margin: 0 auto;
+}
+
+
+.form-button{
+    font-size: 1rem;
+    color: whitesmoke;
+    background-color: #1e73be;
+    border: 2px solid #1e73be;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    width: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    align-self: center;
+    justify-self: center;
+}
+
+.result-container button {
+    margin-bottom: 4rem;
+}
+
+
+/* .form-button:hover {
+    color: #5739fc;
+    background-color: whitesmoke;
+} */
+
+.login-form {
+    height: 400px;
+}
+
+/* .login-header {
+    border-bottom: 1px solid grey;
+} */
+
+.login-form, .login-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+.login-form div {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: space-around;
+}
+
+.login-form .form-input {
+    outline: none;
+    color: #333;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    padding: 0.75rem;
+    border-radius: 10px;
+    border: 1px solid grey;
+    text-align: center;
+    width: 100%;
+}
+
+input:focus::placeholder {
+    color: transparent;
+  }
+
+.login-form .form-button {
+    background-color: #2c296b;
+    color: white;
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.header {
+    background-color: #4b4b4b;
+    padding: 0.5rem;
+    color: whitesmoke;
+    border-radius: 5px 5px 0 0;
+}
+
+.header .show-answer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.show-answer .img-bc {
+    background-color: whitesmoke;
+    padding: 0.25rem;
+    border-radius: 50%;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.view-answer {
+    cursor: pointer;
+}
+
+.question-section {
+    position: relative;
+    padding: 0.5rem;
+    background-color: whitesmoke;
+    color: #333;
+    margin-top: 1rem;
+    border-radius: 5px;
+}
+
+.point-container {
+    padding: 0.5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+    
+}
+
+.question-container {
+    padding: 1.5rem;
+    margin-top: 0.5rem;
+    transition: opacity 0.5s ease;
+}
+
+.hidden {
+    opacity: 0;
+    display: none;
+  }
+
+.question-container li {
+    /* list-style-position: inside; */
+    margin-left: 2rem;
+    line-height: 30px;
+    display: inline;
+}
+
+.question-container .option-container {
+    display: flex;
+    width: 100%;
+}
+
+.option-container  {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 0.5rem;
+    position: relative;
+    /* padding: 1rem; */
+}
+
+
+
+
+/* .exam-page-header {
+    background-color: whitesmoke;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    text-align: center;
+} */
+
+.question-compose-form {
+    padding: 1rem;
+    width: 70%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.question-compose-form textarea{
+    padding: 1rem;
+    background-color: #33333311;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.question-compose-form .noncheckbox {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    background-color: #33333311;
+    width: 100%;
+}
+
+.point-container label {
+
+    width: 50%;
+}
+
+.point-container input {
+    padding: 0.25rem;
+    width: 40%;
+    outline: none;
+    border: none;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+.point-container-uniq{
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.question-compose-form .noncheckbox:focus, .question-compose-form textarea:focus {
+    border-bottom: 2px solid rgba(12, 89, 255, 0.582);
+}
+
+
+
+.question-compose-form .options-container {
+    background-color: whitesmoke;
+    padding: 1rem;
+    /* margin-top: rem; */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.question-compose-form .question-section {
+    margin-top: 0;
+    border-radius: 0 0 5px 5px;
+}
+
+.question-compose-form > div,  .question-form .question-section{
+    box-shadow: 2px 2px 4px hsla(0, 0%, 0%, 0.24);
+
+}
+
+.question-preview-form {
+    width: 70%;
+    margin: 3rem auto;
+}
+
+.question-preview {
+    margin-top: 2rem;
+}
+
+.option {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    /* margin-left: 1rem; */
+}
+
+.option label {
+    cursor: pointer;
+}
+
+.option span {
+    display: flex;
+    align-items: center;
+}
+
+
+/* .options div label {
+    display: flex;
+    gap: 0.25rem;
+} */
+
+.edit-delete-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-right: 2rem;
+}
+
+.edit-button, .delete-button {
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    border-bottom: 2px solid rgba(12, 89, 255, 0);
+    background-color: #33333311;
+}
+
+
+
+.edit-button:hover, .delete-button:hover {
+    border-bottom: 2px solid rgba(12, 89, 255, 0.582);
+}
+
+.remove-option-button {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    padding: 0.45rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border-left: 1px solid black; */
+    
+    background-color: rgb(221, 221, 221);
+}
+
+img {
+    display: block;
+}
+
+.remove-option-button img{
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.remove-option-button:hover img{
+    opacity: 1;
+}
+
+
+
+.remove-option-button:hover {
+    display: block;
+}
+
+.question {
+    display: flex;
+    gap: 0.25rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+
+
+
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    width: 15px;
+    height: 15px;
+    border: 2px solid grey;
+    border-radius: 50%; 
+    outline: none;
+    cursor: pointer;
+}
+
+input[type="checkbox"]::before {
+    content: ""; 
+    display: block;
+    width: 7.5px; /*Diameter of the circle*/
+    height: 7.5px; /*Diameter of the circle*/
+    border-radius: 50%;
+    background-color: #797979; /*Color of the circle*/
+    transform: translate(20%, 22%);
+    opacity: 0;
+}
+
+/* Optional: Custom styles for the checkmark inside the checkbox */
+input[type="checkbox"]:checked::before {
+    opacity: 1;
+}
+
+.timer-container {
+    display: flex;
+    gap: 0.25rem;
+    position: sticky;
+    top: 10px;
+    left: 0;
+    width: 20%;
+    margin-left: 1rem;
+    font-size: 1.5rem;
+    color:#3333332f;
+    cursor:default;
+}
+
+.timer-container:hover {
+    color: hsla(0, 0%, 20%, 0.514);
+}
+
+.information-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    /* background-color: #4b4b4b81; */
+    display: grid;
+}
+
+.information-box {
+    margin-top: 2rem;
+    justify-self: center;
+    background-color: #797878ee;
+    position: fixed;
+    top: 5rem;
+    padding: 8rem;
+    align-self: center;
+    color: whitesmoke;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 20px 20px 100px hsla(0, 0%, 0%, 0.301);
+}
+
+.information-option-btn {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 1.5rem;
+}
+
+.btn {
+    width: 5rem;
+    padding: 0.25rem;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.349);
+}
+
+.error {
+    color: #ee3800;
+    text-align: center;
+    text-shadow: 2px 2px 50px #000000;
+}
+
+/* .timer-container span{
+    position: absolute;
+    right: 10px;
+
+} */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-btn {
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: .25rem;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    outline: none;
+    border: none;
+    
+}
+.menu-items {
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: #333;
+    width: 100%;
+    z-index: 1;
+}
+
+.menu-items li {
+    list-style-type: none;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+
+}
+.menu-items li:hover {
+    background-color: #333;
+    color: whitesmoke;
+}
+
+.dropdown:hover .menu-items {
+    display: block;
+}
+
+
+.dropdown-btn:hover {
+    background-color: whitesmoke;
+}
