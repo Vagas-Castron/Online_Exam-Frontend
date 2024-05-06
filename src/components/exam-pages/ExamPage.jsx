@@ -49,7 +49,7 @@ function timeStamp(){
 
 
 function ExamPage() {
-    const examination = useLoaderData()
+    //const examination = useLoaderData()
     const [points, setPoints] = React.useState([])
     const [examQuestions, setExamQuestions] = React.useState(examination)
     const [status, setStatus] = React.useState("idle")
@@ -148,9 +148,7 @@ function ExamPage() {
     return (
         <>
             <Header />
-            <main className="content-container">
                 <div className="questions-container">
-                    
                 {/* {
                     started ? 
                         <>
@@ -168,7 +166,7 @@ function ExamPage() {
                                         ""  
                             }
                             <form 
-                                className="question-form" 
+                                className="questions-form" 
                                 action="" 
                                 onSubmit={(e) => handleSubmit(e)}
                             >
@@ -184,8 +182,6 @@ function ExamPage() {
                                 {status === "submitting"? "Submitting...":"Submit"}
                             </button>
                 </div>
-                
-            </main>
                     </>
         //         :
         //             <>

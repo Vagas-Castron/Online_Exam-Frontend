@@ -18,11 +18,11 @@ body {
 
 
 .main-container {
-    min-height: 100vh;
+    min-height: calc(100vh - 47px);
 }
 
 header {
-    position: absolute;
+    position: sticky;
     top: 0;
     display: flex;
     justify-content: space-between;
@@ -37,12 +37,12 @@ header {
 }
 
 footer {
-    position: absolute;
+    position: sticky;
     bottom: 0;
     background-color: var(--footer-bg-color);
     padding: 1rem;
     color: var(--font-color);
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
     width: 100%;
 }
@@ -106,4 +106,23 @@ button {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.274);
     background-color: var(--footer-bg-color);
     color: whitesmoke;
+}
+
+
+.questions-container {
+    width: max(50%, 400px);
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.questions-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 0.5rem;
+}
+
+.question-section {
+    padding: 1rem;
+    background-color: white;
 }
