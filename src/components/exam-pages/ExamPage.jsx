@@ -147,7 +147,6 @@ function ExamPage() {
 
     return (
         <>
-            <Header />
                 <div className="questions-container">
                 {/* {
                     started ? 
@@ -175,7 +174,7 @@ function ExamPage() {
                                 </>
                             </form>
                             <button 
-                                className="form-button" 
+                                className="submit-button" 
                                 name="submit" 
                                 onClick={(e) => handleClick(e)}
                             >

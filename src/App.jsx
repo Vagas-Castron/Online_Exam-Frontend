@@ -8,6 +8,7 @@ import Information from "./components/Information"
 import ExamPage, { loader as examLoader} from "./components/exam-pages/ExamPage"
 
 import './style.css'
+import ContentLayout from "./layouts/ContentLayout"
 
 // loader={examLoader}
 function App() {
@@ -16,10 +17,13 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
           <Route index element={<UserLogin />}/>
-          <Route path="exam" element={<ExamPage />} />
-          <Route path="exam-creation" element={<ExamCreateLayout />} loader={adminLoader} />
-          <Route path="results" element={<Results/>} errorElement={<Information byPassing={true} process={null}/>} loader={resultsLoader}/>
-        </Route>
+          <Route element={<ContentLayout />}>
+            <Route path="dashboard" element={<h1>Dashboard Goes Here</h1>} />
+            <Route path="exam" element={<ExamPage />} />
+            <Route path="exam-creation" element={<ExamCreateLayout />} loader={adminLoader} />
+            <Route path="results" element={<Results/>} errorElement={<Information byPassing={true} process={null}/>} loader={resultsLoader}/>
+          </Route>
+      </Route>
       
     )
     )

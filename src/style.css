@@ -19,17 +19,22 @@ body {
 
 .main-container {
     min-height: calc(100vh - 47px);
+    display: grid;
 }
 
 header {
-    position: sticky;
-    top: 0;
+    grid-area: HH;
+    /* position: sticky;
+    top: 0; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 1rem 2rem;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.151);
+    z-index: 1;
+    background-color: #666565;
+    /* background-color: rgb(230, 255, 255); */
 }
 
 .menu-items {
@@ -98,21 +103,38 @@ button {
     padding: 0.75rem;
     border: none;
     border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.274);
+    cursor: pointer;
+}
+
+.dropdown-btn {
+    padding: 0.25rem;
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
 }
 
 .login-button {
     margin: 1rem auto;
     width: 100%;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.274);
     background-color: var(--footer-bg-color);
     color: whitesmoke;
+}
+
+.submit-button {
+    float: right; 
+    margin-top: 1rem;
+    background-color: var(--footer-bg-color);
+    color: var(--font-color);
+    padding: 0.5rem 3rem;
+    
 }
 
 
 .questions-container {
     width: max(50%, 400px);
     margin: 0 auto;
-    padding: 1rem;
+    padding: 1rem 0 4rem;
 }
 
 .questions-form {
@@ -125,4 +147,44 @@ button {
 .question-section {
     padding: 1rem;
     background-color: white;
+}
+
+.question-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.question {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.option-container {
+    margin-left: 1rem;
+}
+
+.option {
+    margin-top: 0.5rem;
+}
+
+.sidebar-container {
+    display: grid;
+    grid-template-areas: "HH HH"
+                          "SS MM";
+    grid-template-columns: 200px 1fr;
+}
+
+.sidebar {
+    grid-area: SS;
+    /* position: absolute;
+    left: 0; */
+    width: 200px;
+    height: 100vh;
+    background-color: darkkhaki;
+}
+
+.content {
+    grid-area: MM;
+    justify-items: center;
 }
