@@ -22,12 +22,13 @@ function App() {
             <Route path="exam" element={<ExamPage />} />
             <Route path="exam-creation" element={<ExamCreateLayout />} loader={adminLoader} />
             <Route path="results" element={<Results/>} errorElement={<Information byPassing={true} process={null}/>} loader={resultsLoader}/>
+            <Route path="user-management" element={<h1>User Managing Page</h1>} loader={adminLoader} />
           </Route>
       </Route>
       
     )
     )
-    return(
+    return (
       
         <RouterProvider router={router} />
       
