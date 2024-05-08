@@ -1,4 +1,5 @@
 import React from "react"
+import { handleChange } from "./ExamCreatePage";
 
 
 
@@ -56,14 +57,13 @@ function ExamPreviewPage({ data, updateData }) {
     function optionSelector(qn){
         return qn.options.map( option =>
             <>
-                <input type="checkbox" name="" id="" checked={option.truthness} />
+                <input type="checkbox" name="truthness" checked={option.truthness} onChange={(e) => handleChange(index, e)}/>
             </>
 
         )
     }
 
     
-
     function option(qn, optionCheckbox){
           return  qn.options.map( (option, index) => 
             <div className="option">
@@ -100,15 +100,26 @@ function ExamPreviewPage({ data, updateData }) {
                                
                    </div> */}
                 <div className="question-container">
-                    <div className="question"><span>{qn.id}.</span><span>{ qn.question }</span></div>
-                    <div className="choice-container">
+                <div>
+                    <textarea 
+                        id="auto-resize-textarea"
+                        name="question" 
+                        rows={1}
+                        value={qn.question} 
+                        placeholder="Enter Question" 
+                        autoFocus={true}
+                        onChange={(e) => handleChange(null, e)}
+                    />
+                </div>
+                    {/* <div className="question"><span>{qn.id}.</span><span>{ qn.question }</span></div> */}
+                    <div className="option-container">
                         <div className="choice-options">
                             {option(qn, optionCheckbox)}
                         </div>
+                        <span className="edit-button" onClick={(e) => addOPtion(e)}>Add Option</span><br/>
                     </div>
                     <div className="edit-delete-btns">  
                         <span className="delete-button" onClick={() => handleClick(index)}>delete</span>
-                        <span className="edit-button">Edit</span> 
                     </div>
                 </div>
                 <div className="point-container"><span>{qn.points} points</span></div>
@@ -118,12 +129,8 @@ function ExamPreviewPage({ data, updateData }) {
 
     return (
         <>
-            <div className="question-preview-form">
-                <form onSubmit={(e)=>handleSubmit(e)}>
                     {question}
-                    {questionList.length > 0 && <button className="form-button">Submit</button>}
-                </form>
-            </div>
+                   
             {/* {questionList.length > 0 && <hr/>} */}
         </>
     )

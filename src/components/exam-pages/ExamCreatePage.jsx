@@ -26,8 +26,45 @@ function valueControl(value){
     }
 }
 
+
+export function handleChange(index, event){
+        
+    const {name, type, value} = event.target
+    setQuestion(prevState => {
+
+        const updatedOptions = [...prevState.options]
+        let updatedChoiceCount = prevState.choiceCount
+            if(index !== null){
+                updatedOptions[index] = {
+                    ...updatedOptions[index],
+                    [name]: type === "checkbox" ? !updatedOptions[index].truthness: value
+                }
+                if(type === "checkbox"){
+                    updatedChoiceCount = updatedOptions[index].truthness? prevState.choiceCount++
+                                                                        : prevState.choiceCount--
+                }
+            }
+        
+
+        return {
+            ...prevState,
+            options: updatedOptions,
+            choiceCount: updatedChoiceCount,
+            question: name === "question"? value: prevState.question,
+            points: name === "points"? value: prevState.points,
+        }
+
+    })
+    if(name === "optionCount"){
+        setOptionCount(valueControl(value))
+    }
+    
+}
+
+
 function ExamCreatePage({ data, updateData }) {
     const [optionCount, setOptionCount] = React.useState(1)
+    const [questionList, setQuestionList] = React.useState([])
     const [question, setQuestion] = React.useState({
         id: 1,
         points: 1, 
@@ -82,39 +119,7 @@ function ExamCreatePage({ data, updateData }) {
         }
     }, [optionCount]);
 
-    function handleChange(index, event){
-        
-        const {name, type, value} = event.target
-        setQuestion(prevState => {
-
-            const updatedOptions = [...prevState.options]
-            let updatedChoiceCount = prevState.choiceCount
-                if(index !== null){
-                    updatedOptions[index] = {
-                        ...updatedOptions[index],
-                        [name]: type === "checkbox" ? !updatedOptions[index].truthness: value
-                    }
-                    if(type === "checkbox"){
-                        updatedChoiceCount = updatedOptions[index].truthness? prevState.choiceCount++
-                                                                            : prevState.choiceCount--
-                    }
-                }
-            
-
-            return {
-                ...prevState,
-                options: updatedOptions,
-                choiceCount: updatedChoiceCount,
-                question: name === "question"? value: prevState.question,
-                points: name === "points"? value: prevState.points,
-            }
-
-        })
-        if(name === "optionCount"){
-            setOptionCount(valueControl(value))
-        }
-        
-    }
+    
     console.log(question.choiceCount)
 
     function addOPtion(event){
@@ -125,7 +130,9 @@ function ExamCreatePage({ data, updateData }) {
     function handleSubmit(event){
         event.preventDefault()
         console.log(question)
+        setQuestionList(prevList => [...prevList, question])
         updateData(question)
+        
         setQuestion(prevQuestion => {
             let updateId = prevQuestion.id + 1
             return {
@@ -142,9 +149,6 @@ function ExamCreatePage({ data, updateData }) {
     // console.log(question)
     return (
         <>
-            <div className="question-compose-form">
-                <div>
-                    <form action="">
                         <section className="question-section">
                             <div className="point-container point-container-uniq">
                             <label>
@@ -195,11 +199,11 @@ function ExamCreatePage({ data, updateData }) {
                                     <span className="edit-button" onClick={(e) => addOPtion(e)}>Add Option</span><br/>
                                 </div>
                             </div>
+                            <div className="edit-delete-btns">  
+                                <span className="delete-button" onClick={() => handleClick(index)}>delete</span>
+                            </div>
                         </section>
-                    </form>
-                </div>
                 <button className="form-button" onClick={(e) => handleSubmit(e) }>Add Question</button>
-            </div>
         </>
     );
 }

@@ -59,10 +59,12 @@ function ExamCreateLayout() {
 
     return (
         <>
-            <main className='content-container'>
-
+            <main className='questions-container'>
+                <div className="questions-form">
                     <ExamPreviewPage data={data} updateData={updateData}/>
                     <ExamCreatePage data={data} updateData={updateData}/>
+                </div>
+
             </main>
         </>
     )
