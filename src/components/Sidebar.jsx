@@ -18,35 +18,60 @@ export default function Sidebar() {
             </div>
             <ul>
                 <li>
-                    <NavLink to="dashboard">
+                    <NavLink 
+                        to="dashboard"
+                        className={({isActive}) => {
+                            return isActive? "active-link": ""
+                        }}
+                    >
                         <MdSpaceDashboard size="25px" className="icon"/>
                         <span className="menu-item-name">Dashboard</span>
                     </NavLink>
                     <span className="tooltip">Dashboard</span>
                 </li>
                 <li>
-                    <NavLink to="exam">
+                    <NavLink 
+                        to="exam"
+                        className={({isActive}) => {
+                            return isActive? "active-link": ""
+                        }}
+                    >
                         <SiMicrosoftacademic size="25px" className="icon"/>
                         <span className="menu-item-name">Exam</span>
                     </NavLink>
                     <span className="tooltip">Exam</span>
                 </li>
                 <li>
-                    <NavLink to="exam-creation">
+                    <NavLink 
+                            to="exam-creation" 
+                            className={({isActive}) => {
+                                return isActive? "active-link": ""
+                            }}
+                    >
                         <IoCreate size="25px" className="icon"/>
                         <span className="menu-item-name">Compose</span>
                     </NavLink>
                     <span className="tooltip">Compose</span>
                 </li>
                 <li>
-                    <NavLink to="Results">
+                    <NavLink 
+                        to="Results"
+                        className={({isActive}) => {
+                            return isActive? "active-link": ""
+                        }}
+                    >
                         <BsFileEarmarkBarGraphFill size="25px" className="icon"/>
                         <span className="menu-item-name">Results</span>
                     </NavLink>
                     <span className="tooltip">Results</span>
                 </li>
                 <li>
-                    <NavLink to="user-management">
+                    <NavLink 
+                        to="user-management"
+                        className={({isActive}) => {
+                            return isActive? "active-link": ""
+                        }}
+                    >
                         <FaUser size="25px" className="icon"/>
                         <span className="menu-item-name">Users</span>
                     </NavLink>

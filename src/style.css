@@ -235,6 +235,10 @@ button {
 }
 
 
+.active-link {
+    border-bottom: 1px solid orange;
+}
+
 
 .sidebar-menu ul li .icon {
     height: 50px;
