@@ -200,6 +200,7 @@ button {
     top: 0;
     padding: 1rem;
     width: 100%;
+    transition: all 0.2s ease;
     
 }
 
@@ -225,6 +226,8 @@ button {
     border-radius: 0.8rem;
     padding: 0 0.8rem;
     text-decoration: none;
+    transition: all 0.2s ease;
+
 }
 
 .sidebar.active .sidebar-menu ul li a {
@@ -299,3 +302,42 @@ button {
 .menu-btn {
     border-radius: none;
 }
+
+.create-options {
+    height: 100%;
+    display: grid;
+    min-width: 300px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    place-content: center;
+    gap: 1rem;
+}
+
+.create-options a {
+    height: 100%;
+    width: 100%;
+    background-color: #333;
+    color: whitesmoke;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.create-options a:hover{
+    background-color: whitesmoke;
+    color: #333;
+}
+
+.create-options a span {
+    display: grid;
+    height: 100%;
+    justify-items: center;
+    align-content: center;
+    font-size: 1.5rem;
+}
+
+.create-options a:hover span {
+    border-bottom: 4px solid orange;
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+

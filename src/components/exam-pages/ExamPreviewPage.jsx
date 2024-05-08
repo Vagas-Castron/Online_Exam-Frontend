@@ -68,7 +68,7 @@ function ExamPreviewPage({ data, updateData }) {
           return  qn.options.map( (option, index) => 
             <div className="option">
                 <span>{optionCheckbox[index]}</span>
-                <span>{option.optionValue}</span>
+                <input type="text" value={option.optionValue}/>
             </div>
         )
     }
@@ -124,7 +124,7 @@ function ExamPreviewPage({ data, updateData }) {
                     {questionList.length > 0 && <button className="form-button">Submit</button>}
                 </form>
             </div>
-            {questionList.length > 0 && <hr/>}
+            {/* {questionList.length > 0 && <hr/>} */}
         </>
     )
 }

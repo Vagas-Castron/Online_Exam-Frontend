@@ -145,7 +145,6 @@ function ExamCreatePage({ data, updateData }) {
             <div className="question-compose-form">
                 <div>
                     <form action="">
-                        <div className="header"><h1>Compose Question</h1></div>
                         <section className="question-section">
                             <div className="point-container point-container-uniq">
                             <label>

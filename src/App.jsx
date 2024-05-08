@@ -9,6 +9,7 @@ import ExamPage, { loader as examLoader} from "./components/exam-pages/ExamPage"
 
 import './style.css'
 import ContentLayout from "./layouts/ContentLayout"
+import ExamCreationOptions from "./components/ExamCreationOptions"
 
 // loader={examLoader}
 function App() {
@@ -20,6 +21,9 @@ function App() {
           <Route element={<ContentLayout />}>
             <Route path="dashboard" element={<h1>Dashboard Goes Here</h1>} />
             <Route path="exam" element={<ExamPage />} />
+            <Route path="exam-creation" element={<ExamCreationOptions />}  />
+            <Route path="exam-creation/new-exam" element={<ExamCreateLayout />}  />
+            <Route path="exam-creation/edit-exam" element={<h1>edit exam creation</h1>}  />
             <Route path="exam-creation" element={<ExamCreateLayout />}  />
             <Route path="results" element={<Results/>}  />
             <Route path="user-management" element={<h1>User Managing Page</h1>} loader={adminLoader} />
