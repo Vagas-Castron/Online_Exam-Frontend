@@ -7,9 +7,10 @@
 :root {
     --bg-color: rgba(0, 139, 139, 0.089);
     --header-bg-color: #666565;
-    --footer-bg-color: rgba(0, 0, 139, 0.815);
+    --footer-bg-color: #2a6783;
     --font-color: whitesmoke;
     --main-color: #317a9c;
+    --accent-color: orange;
     --sidebar-bg-color: #12171e;
 }
 
@@ -81,6 +82,10 @@ footer {
     outline: none;
 }
 
+.form-container select{
+    border-radius: 5px;
+}
+
 .error-container {
     text-align: center;
     /* background-color: red; */
@@ -103,35 +108,42 @@ footer {
     width: 70%;
 }
 
-.floating-container .user-form h2 {
-    padding: 1rem 0.5rem;
+.floating-container .user-form .form-header {
+    padding: 0.5rem;
     background-color: #317a9c;
     color: white;
     border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .floating-form {
     justify-self: center;
     width: 70%;
+    height: 90%;
     border-radius: 10px 10px 0 0;
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.274);
     border-bottom: 2px solid var(--main-color);
     background-color: whitesmoke;
+    opacity: 0.95;
 }
 
 .floating-container {
     position: absolute;
-    height: 95%;
+    height: 85vh;
     width: 95%;
     z-index: 1;
     display: grid;
     place-content: center;
 }
 
-.floating-container .floating-form div {
+.floating-container .floating-form .input-container {
     width: 70%;
+    height: 80%;
     padding: 1rem;
     margin: 0 auto;
+    overflow-y: scroll;
     /* position: relative; */
 }
 
@@ -166,7 +178,7 @@ button {
     color: whitesmoke;
 }
 
-.round-btn {
+.action-btn {
     margin-top: 1rem;
     border-radius: 50%;
     background-color: var(--main-color);
@@ -175,15 +187,32 @@ button {
     transition: all 0.2s ease;
 }
 
-.round-btn:hover {
+.action-btn:hover {
     background-color: white;
-    color: var(--main-color);
+    color: var(--accent-color);
 }
 
-.add-user-btn {
+.cancel-btn {
+    padding: 0;
+    box-shadow: none;
+    background-color: var(--main-color);
+    color: white;
+    font-size: 1.25rem;
+    border-radius: 50%;
+    transition: all 0.2s ease-out;
+
+}
+
+.cancel-btn:hover {
+    background-color: white;
+    color: red;
+}
+
+.pos-right {
     position: absolute;
     right: 0;
 }
+
 
 .submit-button {
     float: right; 
@@ -196,7 +225,7 @@ button {
 
 .btn-container{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: flex-start;
     margin: 0;
 }

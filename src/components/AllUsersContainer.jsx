@@ -66,7 +66,7 @@ export default function AllUsersContainer(){
                             </tr>                   
                         ))}
                     </tbody>
-                    <button className='round-btn add-user-btn' onClick={e => handleClick(e)} id='trigger-btn'>
+                    <button className='action-btn pos-right' onClick={e => handleClick(e)} id='trigger-btn'>
                         <TiUserAdd size="1.5em"/>
                         {/* <span>Add User</span> */}
                     </button>

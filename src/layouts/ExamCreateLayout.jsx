@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useState } from 'react';
-import { useLoaderData, redirect } from 'react-router-dom';
+import { useLoaderData, redirect, Form } from 'react-router-dom';
 import ExamCreatePage from '../components/exam-pages/ExamCreatePage';
 import ExamPreviewPage from '../components/exam-pages/ExamPreviewPage';
 import Header from "../components/Header"
 import { isAdminAuthenticated } from '../utils';
+import { TiArrowBack } from "react-icons/ti"
 
 
 export async function loader() {
@@ -17,8 +18,63 @@ export async function loader() {
     }
 }
 
+function ExamOption(){
+    return(
+        <input
+            type='text'
+            name='option'
+            placeholder='Option'
+        />
+    )
+}
 
-function ExamCreateLayout() {
+function ExamQuestion(){
+    const [optionCount, setOptionCount] = React.useState(1)
+    const [option, setOption] = React.useState([])
+    React.useEffect(() =>{
+        for( let i = 0; i < optionCount; i++){
+            setOption(prevOptions => [
+                ...prevOptions,
+                <ExamOption />
+            ])
+        }
+
+    }, [optionCount])
+
+    function handleClick(){
+        setOption(prevCount => prevCount + 1)
+    }
+
+    return (
+        <>
+            <textarea
+                name='question'
+                placeholder='Enter Question'
+            />
+            {option.map(option => option)}
+            <hr />
+            <button onClick={handleClick}>add option</button>
+        </>
+    )
+}
+
+
+function ExamCreateLayout({ formTrigger}) {
+    const [questionCount, setQuestionCount] = React.useState(3)
+    const [questions, setQuestions] = React.useState([])
+    React.useEffect(() => {
+        for( let i = 0; i < questionCount; i++){
+            setQuestions(prevQuestions => [
+                ...prevQuestions,
+                <ExamQuestion />
+            ])
+        }
+    },[questionCount])
+
+    function handleClick(){
+        formTrigger(false)
+    }
+
     const [data, setData] = React.useState([])
     function updateData(newData){
         setData(prevData => {
@@ -60,11 +116,19 @@ function ExamCreateLayout() {
     return (
         <>
             <main className='questions-container'>
-                <div className="questions-form">
+                {/* <div className="questions-form">
                     <ExamPreviewPage data={data} updateData={updateData}/>
                     <ExamCreatePage data={data} updateData={updateData}/>
-                </div>
-
+                </div> */}
+                <Form method='post'>
+                    {questions.map(question => question)}
+                </Form>
+                <div className='btn-container'>
+                        <button>submit</button>
+                        <button className='round-btn' onClick={handleClick}>
+                            <TiArrowBack size="1.5em"/>
+                        </button>
+                    </div>
             </main>
         </>
     )

@@ -3,6 +3,7 @@ import { Form, redirect } from 'react-router-dom'
 import { IoArrowBack } from "react-icons/io5"
 import { TiArrowBack } from "react-icons/ti"
 import { retrieveData } from '../utils'
+import { MdCancel } from "react-icons/md"
 
 
 export async function action({ request }){
@@ -43,8 +44,13 @@ export default function NewUserForm({formTrigger}){
     return (
         <div className='form-container floating-container'>
             <Form method="post" className='user-form floating-form'>
-                <h2>Create New User</h2>
-                <div>    
+                <div className='form-header'>
+                    <h2>Create New User</h2>
+                    <button className='cancel-btn' onClick={handleClick}>
+                        <MdCancel size="1.5em"/>
+                    </button>
+                </div>
+                <div className='input-container'>    
                     <input 
                         type='text'
                         name='username'
@@ -77,12 +83,10 @@ export default function NewUserForm({formTrigger}){
                         <option value='team leader'>Team Leader</option>
                         <option value='agent'>Customer Care Agent</option>
                     </select>
-                    <button>submit</button>
-                </div>
-                <div className='btn-container'>
-                    <button className='round-btn' onClick={handleClick}>
-                        <TiArrowBack size="1.5em"/>
-                    </button>
+                    <div className='btn-container'>
+                        <button>submit</button>
+                        
+                    </div>
                 </div>
             </Form>
         </div>
