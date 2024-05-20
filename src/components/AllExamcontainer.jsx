@@ -31,7 +31,7 @@ export default function AllExamcontainer(){
 
     return (
         <>
-            {formTrigger? <ExamCreateLayout formTrigger={setFormTrigger}/>: ""}
+            {/* {formTrigger? <ExamCreateLayout formTrigger={setFormTrigger}/>: ""} */}
             <div>
                 {console.log(data)}
                 <table className='listing-table'>
@@ -53,10 +53,10 @@ export default function AllExamcontainer(){
                             </tr>                   
                         ))}
                     </tbody>
-                    <button className='action-btn pos-right' onClick={handleClick} id='trigger-btn'>
+                    <Link to="new-exam" className='action-btn pos-right btn-link'>
                         <MdNoteAdd size="1.5em"/>
                         {/* <span>Add User</span> */}
-                    </button>
+                    </Link>
                 </table>
             </div>
         </>

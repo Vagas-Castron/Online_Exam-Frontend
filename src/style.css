@@ -91,8 +91,8 @@ footer {
 
 .floating{
     position: absolute;
-    height: 85vh;
-    width: 95%;
+    height: 80vh;
+    width: max(95%, 700px);
     z-index: 1;
 }
 
@@ -101,9 +101,11 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0;
+    /* padding: 1rem; */
+    height: 100%;
     /* margin-top: .25rem; */
     /* justify-content: center; */
+
 }
 
 input, textarea {
@@ -113,6 +115,11 @@ input, textarea {
     outline: none;
     font-family: sans-serif;
     color: black;
+    line-height: 25px;
+}
+
+textarea {
+    flex-grow: 1;
 }
 
 input:focus, textarea:focus {
@@ -132,7 +139,6 @@ input:focus, textarea:focus {
 .form-content {
     width: 100%;
     height: 100%;
-    overflow-y: scroll;
     padding: 0 0 0 0;
     display: flex;
     flex-direction: column;
@@ -141,7 +147,7 @@ input:focus, textarea:focus {
 
 
 .form-content li {
-    width: 80%;
+    width: 100%;
     list-style-type: none;
     display: flex;
     gap: 10px;
@@ -164,18 +170,18 @@ input:focus, textarea:focus {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: max(70%, 500px)
 }
 
 .floating-fm {
+    width: max(50%, 400px);
     justify-self: center;
-    width: 100%;
-    height: 90%;
+    height: 100%;
     margin: 0 auto;
     border-radius: 0 0 10px 10px;
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.274);
     border-bottom: 2px solid var(--main-color);
     background-color: rgb(213, 241, 241);
-    /* opacity: 0.95; */
 }
 
 
@@ -239,6 +245,35 @@ button {
 
 }
 
+.qn-rem {
+    background-color: white;
+    color: red;
+    opacity: 0.2;
+    transition: all .2s ease;
+}
+
+.qn-rem:hover {
+    opacity: 0.6;
+}
+
+.option-add {
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.option-add:hover {
+    border-bottom: 2px solid orange;
+}
+
+.option-rem {
+    opacity: 0.1;
+    transition: all 0.2s ease;
+}
+
+.option-rem:hover {
+    opacity: 0.5;
+}
+
 .add-btn:hover {
     background-color: white;
     color: var(--main-color);
@@ -254,6 +289,20 @@ button {
     right: 0;
 }
 
+.btn-link {
+    width: 3rem;
+    height: 3rem;
+    display: grid;
+    place-content: center;
+}
+
+.btn-link-circle {
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-content: center;
+}
+
 
 .submit-button {
     float: right; 
@@ -267,8 +316,9 @@ button {
 .btn-container{
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     margin: 0;
+    width: max(70%, 500px)
 }
 .questions-container {
     width: max(60%, 600px);
@@ -293,13 +343,13 @@ button {
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-    width: 80%;
     margin: 1rem auto 0;
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.212);
     padding: 1rem;
     border-radius: 10px;
     background-color: white;
     border-bottom: 3px solid var(--main-color);
+    width: max(70%, 500px)
 }
 
 .question {

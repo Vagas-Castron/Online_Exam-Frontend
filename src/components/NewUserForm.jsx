@@ -43,48 +43,53 @@ export default function NewUserForm({formTrigger}){
     }
     return (
         <div className='floating'>
-            <div className='header-fm'>
-                <h2>Create New User</h2>
-                <button className='cancel-btn' onClick={handleClick}>
-                    <MdCancel size="1.5em"/>
-                </button>
+            <div className="floating-fm">
+                <div className='header-fm'>
+                    <h2>Create New User</h2>
+                    <button className='cancel-btn' onClick={handleClick}>
+                        <MdCancel size="1.5em"/>
+                    </button>
+                </div>
+                <Form method="post" className='user-rel'>
+                    <div className="form-content">
+
+                        <input 
+                            type='text'
+                            name='username'
+                            placeholder='Username'
+                        />
+                        <input
+                            type='text'
+                            name='first_name'
+                            placeholder='First Name'
+                        />
+                        <input
+                            type='text'
+                            name='last_name'
+                            placeholder='Last Name'
+                        />
+                        <input
+                            type='password'
+                            name='password'
+                            placeholder='Password'
+                        />
+                        <input
+                            type='password'
+                            name='confirm_password'
+                            placeholder='Confirm Password'
+                        />
+                        <select name="status" id="">
+                            <option value=''>--Choose Status--</option>
+                            <option value='administrator'>Administrator</option>
+                            <option value='quality analyst'>Quality Analyst</option>
+                            <option value='team leader'>Team Leader</option>
+                            <option value='agent'>Customer Care Agent</option>
+                        </select>
+                        <button>submit</button>
+                            
+                    </div>
+                </Form>
             </div>
-            <Form method="post" className='floating-fm user-rel'>
-                    <input 
-                        type='text'
-                        name='username'
-                        placeholder='Username'
-                    />
-                    <input
-                        type='text'
-                        name='first_name'
-                        placeholder='First Name'
-                    />
-                    <input
-                        type='text'
-                        name='last_name'
-                        placeholder='Last Name'
-                    />
-                    <input
-                        type='password'
-                        name='password'
-                        placeholder='Password'
-                    />
-                    <input
-                        type='password'
-                        name='confirm_password'
-                        placeholder='Confirm Password'
-                    />
-                    <select name="status" id="">
-                        <option value=''>--Choose Status--</option>
-                        <option value='administrator'>Administrator</option>
-                        <option value='quality analyst'>Quality Analyst</option>
-                        <option value='team leader'>Team Leader</option>
-                        <option value='agent'>Customer Care Agent</option>
-                    </select>
-                    <button>submit</button>
-                        
-            </Form>
         </div>
 
     )
