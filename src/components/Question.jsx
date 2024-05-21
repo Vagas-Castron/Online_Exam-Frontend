@@ -141,7 +141,7 @@ function Question({ question, setTotalPoints }) {
     }
     // console.log(questionPoints)
     return (
-        <section className="question-section">
+        <>
             {/* <div className="point-container point-container-uniq">
                        
                 <span>{question.points}</span> 
@@ -156,7 +156,7 @@ function Question({ question, setTotalPoints }) {
                     <Choices question={question} getPoints={getPoints}/> {/*a child component to create dynamic multiple choices*/}
             </div>
             {/* <div className="point-container"><span>{question.points} points</span></div> */}
-        </section>
+        </>
     )
 }
 

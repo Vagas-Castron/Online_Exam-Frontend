@@ -3,15 +3,42 @@ import { redirect, Form, useNavigate, Link } from 'react-router-dom';
 import ExamCreatePage from '../components/exam-pages/ExamCreatePage';
 import ExamPreviewPage from '../components/exam-pages/ExamPreviewPage';
 import Header from "../components/Header"
-import { isAdminAuthenticated } from '../utils';
+import { isAdminAuthenticated, retrieveData } from '../utils';
 import { MdCancel } from "react-icons/md"
 import { IoIosAddCircleOutline } from "react-icons/io"
 import { MdOutlineCancel } from "react-icons/md"
 import { TbTrashXFilled } from "react-icons/tb"
+import { reformatFormData  } from '../utils';
 
 export async function action({ request }) {
     const formData = await request.formData()
-    console.log(formData.get("option-1A"))
+    const data = reformatFormData(formData)
+    // let questions = []
+    // const data = {}
+    // const options = []
+    // const option = {}
+
+    // formData.forEach((value, key) => {
+    //     data[key] = value
+    // })
+    console.log(data)
+
+    const token = retrieveData()?.token
+    const headers = {
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json'
+    }
+
+
+    try {
+        const response = await fetch('http://localhost:8000/api/exam/compose', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(data)
+        });
+    }catch(error){
+        throw {message: "error"}
+    }
     return null
 }
 
@@ -57,22 +84,20 @@ function ExamOption({ questionId, optionId, removeOption }) {
 }
 
 function ExamQuestion({ questionId, removeQuestion }) {
-    const [optionCount, setOptionCount] = React.useState(1);
+    const [optionCount, setOptionCount] = React.useState(0);
     const [options, setOptions] = React.useState([{id: 1}]);
 
     function handleClick(event) {
         event.preventDefault()
         const targetDiv = event.target.closest("div[data-name]")
-        const name = targetDiv ? targetDiv.getAttribute('data-name') : null
+        const name = targetDiv? targetDiv.getAttribute('data-name'): null
         console.log(name)
         if(name === "question-del"){
             removeQuestion(questionId)
         }else{
-            setOptionCount(prevCount => {
-                const newCount = prevCount + 1
-            });
+            setOptionCount(prevCount => prevCount + 1)
             setOptions(prevOptions => {
-                const optionId = prevOptions.length + 1
+                const optionId = options.length + 1
                 return [
                     ...prevOptions,
                     {id: optionId},
@@ -86,6 +111,7 @@ function ExamQuestion({ questionId, removeQuestion }) {
             // console.log("deleting...", optionId)
             if(prevOptions.length > 0){
                 const newOptions = prevOptions.filter(option => option.id !== optionId - 1)
+                // setOptionCount(prevCount => prevCount - 1)
                 const sortedOptions = newOptions.map((option, index) => {
                     return {id: index + 1}
                 })
@@ -133,25 +159,9 @@ function ExamQuestion({ questionId, removeQuestion }) {
 
 
 function ExamCreateLayout({ formTrigger}) {
-    const [questionCount, setQuestionCount] = React.useState(1)
+    const [questionCount, setQuestionCount] = React.useState(0)
     const [questions, setQuestions] = React.useState([{id: 1}])
     const navigate = useNavigate()
-
-    function removeQuestion(questionId){
-        setQuestions(prevQuestions => {
-            console.log("deleting...", questionId)
-            if(prevQuestions.length > 1){
-                const newQuestions = prevQuestions.filter(question => question.id !== questionId - 1)
-                const sortedQuestions = newQuestions.map((question, index) => {
-                    return {id: index + 1}
-                })
-                console.log(sortedQuestions)
-                return sortedQuestions
-            }else{
-                return prevQuestions
-            }
-        })
-    }
 
     function handleClick(event){
         event.preventDefault()
@@ -160,7 +170,7 @@ function ExamCreateLayout({ formTrigger}) {
         if(name === "add"){
             setQuestionCount(count => count + 1)
             setQuestions(prevQuestions => {
-                const questionId = prevQuestions.length + 1
+                const questionId = questions.length + 1
                 return [
                     ...prevQuestions,
                     {id: questionId},
@@ -172,7 +182,23 @@ function ExamCreateLayout({ formTrigger}) {
         }
     }
 
-    
+    function removeQuestion(questionId){
+        setQuestions(prevQuestions => {
+            console.log("deleting...", questionId)
+            if(prevQuestions.length > 0){
+                const newQuestions = prevQuestions.filter(question => question.id !== questionId - 1)
+                // setQuestionCount(count => count - 1)
+                const sortedQuestions = newQuestions.map((question, index) => {
+                    return {id: index + 1}
+                })
+                console.log(sortedQuestions)
+                return sortedQuestions
+            }else{
+                return prevQuestions
+            }
+        })
+    }
+
     return (
         <>
                     <Form method='post'>
@@ -183,6 +209,31 @@ function ExamCreateLayout({ formTrigger}) {
                             </Link>
                         </div>
                         <div className='form-content'>
+                            <div className="question-container">
+                                <ul>
+                                    <li>
+
+                                        <input 
+                                            type='text'
+                                            name='title'
+                                            placeholder="Untitled"
+                                        />
+                                        <div>
+                                            <span>Timer: </span>
+                                            <input 
+                                                name='timer'
+                                                type="number"
+                                                placeholder='Duration in Minutes'
+                                            />
+                                        </div>
+                                    </li>
+                                </ul>
+                                <textarea 
+                                    name="description" 
+                                    rows={1}
+                                    placeholder='Description'
+                                />
+                            </div>
                             {questions.map( 
                                 question => <ExamQuestion 
                                                 key={question.id} 
@@ -192,16 +243,16 @@ function ExamCreateLayout({ formTrigger}) {
                             }
                             <div>
                             </div>
-                        </div>
-                        <div className='btn-container'>
-                            <button 
-                                name="add" 
-                                className="action-btn"
-                                onClick={e => handleClick(e)}
-                            >
-                                <IoIosAddCircleOutline size="1.5em"/>
-                            </button>
-                            <button>submit</button>
+                            <div className='btn-container'>
+                                <button 
+                                    name="add" 
+                                    className="action-btn"
+                                    onClick={e => handleClick(e)}
+                                >
+                                    <IoIosAddCircleOutline size="1.5em"/>
+                                </button>
+                                <button>submit</button>
+                            </div>
                         </div>
                     </Form>
         </>
@@ -209,40 +260,3 @@ function ExamCreateLayout({ formTrigger}) {
 }
 
 export default ExamCreateLayout
-                    // const [data, setData] = React.useState([])
-                    // function updateData(newData){
-                    //     setData(prevData => {
-                    //         if(prevData.includes(newData)){
-                    //             const letters = "abcdefghijklmnopqrstuvwxyz"
-                    //             const updatedQuestions = prevData.filter(data => data !== newData)
-                    //             // Update the IDs of the remaining questions
-                    //         const updatedQuestionsWithIDs = updatedQuestions.map((data, index) => ({
-                    //             ...data,
-                    //             id: index + 1
-                    //         }));
-                
-                    //         // Update the options of the remaining questions
-                    //         const updatedQuestionsWithOptions = updatedQuestionsWithIDs.map((question, index) => {
-                    //             // If the question's ID is greater than the deleted question's ID,
-                    //             // decrement the ID of each option
-                    //             if (question.id >= newData.id) {
-                    //                 const updatedOptions = question.options.map(option => ({
-                    //                     ...option,
-                    //                     optionId: `${question.id - 1}${letters[index].toLocaleUpperCase()}` // Decrement optionId
-                    //                 }));
-                    //                 return { ...question, options: updatedOptions };
-                    //             }
-                    //             console.log(question)
-                    //             return question;
-                    //         });
-                
-                    //         return updatedQuestionsWithOptions;
-                    //     } else {
-                    //         // Add the new question
-                    //         const updatedData = [...prevData, newData];
-                
-                    //         // Update the IDs of all questions
-                    //         return updatedData.map((data, index) => ({ ...data, id: index + 1 }));
-                    //     }
-                    //     })
-                    // }

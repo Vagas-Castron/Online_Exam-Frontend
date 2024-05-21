@@ -147,12 +147,12 @@ function ExamPage() {
 
     return (
         <>
-                <div className="questions-container">
+                {/* <div className="questions-container"> */}
                 {/* {
                     started ? 
                         <>
                     <Timer submit={handleSubmit}/> */}
-                            {
+                            {/* {
                                 confirmation? 
                                         <Information 
                                             action={handleSubmit} 
@@ -163,24 +163,27 @@ function ExamPage() {
                                         />
                                     : 
                                         ""  
-                            }
+                            } */}
                             <form 
                                 className="questions-form" 
                                 action="" 
                                 onSubmit={(e) => handleSubmit(e)}
                             >
-                                <>
-                                    {questions}
-                                </>
+                                <div className="form-content">
+                                    <>
+                                        {questions}
+                                    </>
+                                    <button 
+                                        className="submit-button" 
+                                        name="submit" 
+                                        onClick={(e) => handleClick(e)}
+                                    >
+                                        {status === "submitting"? "Submitting...":"Submit"}
+                                    </button>
+                                    
+                                </div>
                             </form>
-                            <button 
-                                className="submit-button" 
-                                name="submit" 
-                                onClick={(e) => handleClick(e)}
-                            >
-                                {status === "submitting"? "Submitting...":"Submit"}
-                            </button>
-                </div>
+                {/* </div> */}
                     </>
         //         :
         //             <>

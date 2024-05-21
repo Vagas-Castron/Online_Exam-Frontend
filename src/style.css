@@ -126,6 +126,10 @@ input:focus, textarea:focus {
     border-bottom: 2px solid var(--accent-color);
 }
 
+input[name="title"] {
+    font-size: 1.25rem;
+}
+
 .user-rel input, .user-rel select{
     width: 40%;
     font-size: 16px;
@@ -317,7 +321,7 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0;
+    margin: 0 auto;
     width: max(70%, 500px)
 }
 .questions-container {

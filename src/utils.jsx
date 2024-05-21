@@ -129,3 +129,66 @@ export const clearData = () => {
     sessionStorage.removeItem('userData');
 };
 
+
+export function reformatFormData(formData) {
+  const data = {
+      title: formData.get('title'),
+      timer: formData.get('timer'),
+      description: formData.get('description'),
+      questions: [],
+  };
+
+  const questions = {};
+  
+  formData.forEach((value, key) => {
+      const questionMatch = key.match(/^question-(\d+)$/);
+      const optionMatch = key.match(/^option-(\d+)([A-Z])$/);
+      const selectorMatch = key.match(/^selector-(\d+)([A-Z])$/);
+
+      if (questionMatch) {
+          const questionId = questionMatch[1];
+          if (!questions[questionId]) {
+              questions[questionId] = {
+                  text: value,
+                  options: [],
+              };
+          } else {
+              questions[questionId].text = value;
+          }
+      } else if (optionMatch) {
+          const questionId = optionMatch[1];
+          const optionId = optionMatch[2];
+          if (!questions[questionId]) {
+              questions[questionId] = {
+                  text: '',
+                  options: [],
+              };
+          }
+          questions[questionId].options.push({
+              id: optionId,
+              text: value,
+              correct: false,
+          });
+      } else if (selectorMatch) {
+          const questionId = selectorMatch[1];
+          const optionId = selectorMatch[2];
+          if (questions[questionId]) {
+            const option = questions[questionId].options.find((option) => console.log("debug"))
+            console.log(optionId)
+            console.log(option)
+              if (option) {
+                  option.correct = true;
+              }
+          }
+      }
+  });
+
+  Object.keys(questions).forEach(questionId => {
+      data.questions.push({
+          text: questions[questionId].text,
+          options: questions[questionId].options,
+      });
+  });
+
+  return data;
+}
