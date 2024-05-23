@@ -174,7 +174,8 @@ input[name="title"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: max(70%, 500px)
+    width: max(70%, 500px);
+    transition: all 0.2s ease;
 }
 
 .floating-fm {
@@ -227,7 +228,7 @@ button {
     color: var(--accent-color);
 }
 
-.cancel-btn {
+.nopad-btn {
     padding: 0;
     box-shadow: none;
     background-color: var(--main-color);
@@ -283,7 +284,7 @@ button {
     color: var(--main-color);
 }
 
-.cancel-btn:hover {
+.nopad-btn:hover {
     background-color: white;
     color: red;
 }
@@ -307,6 +308,13 @@ button {
     place-content: center;
 }
 
+.horizontal-spread {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.15rem;
+}
 
 .submit-button {
     float: right; 

@@ -5,7 +5,7 @@ import ExamCreateLayout, {action as examCreationAction} from "./layouts/ExamCrea
 import UserLogin from "./components/UserLogin"
 import Results, {loader as resultsLoader} from "./components/Results"
 import Information from "./components/Information"
-import ExamPage, { loader as examLoader} from "./components/exam-pages/ExamPage"
+import ExamPage, { loader as examLoader } from "./components/exam-pages/ExamPage"
 
 import './style.css'
 import ContentLayout from "./layouts/ContentLayout"

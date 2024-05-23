@@ -46,7 +46,7 @@ export default function NewUserForm({formTrigger}){
             <div className="floating-fm">
                 <div className='header-fm'>
                     <h2>Create New User</h2>
-                    <button className='cancel-btn' onClick={handleClick}>
+                    <button className='nopad-btn' onClick={handleClick}>
                         <MdCancel size="1.5em"/>
                     </button>
                 </div>

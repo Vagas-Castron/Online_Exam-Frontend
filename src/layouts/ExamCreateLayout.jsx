@@ -199,7 +199,7 @@ function ExamCreateLayout({ formTrigger}) {
                     <Form method='post'>
                         <div className='header-fm '>
                             <h2>New Exam</h2>
-                            <Link to="/exam-creation" className='cancel-btn btn-link-circle'>
+                            <Link to="/exam-creation" className='nopad-btn btn-link-circle'>
                                 <MdCancel size="1.5em"/>
                             </Link>
                         </div>

@@ -5,9 +5,9 @@ function StatisticsComponent() {
     
     return (
         <>
-            <div className="question-compose-form">
-                <div className="header"><h1>Results</h1></div>
-                <div className="question-section">
+            {/* <div className="form-content"> */}
+                <div className="header-fm"><h1>Results</h1></div>
+                <div className="form-content">
                     <div className="question-container">
                         <div class="flex-wrapper">
                             <div class="single-chart">
@@ -72,7 +72,7 @@ function StatisticsComponent() {
                         </div>
                     </div>
                 </div>
-            </div>
+            {/* </div> */}
         </>
     )
 }
