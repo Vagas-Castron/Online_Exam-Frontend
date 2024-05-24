@@ -10,31 +10,38 @@ import { retrieveData } from '../../utils'
 import { MdOutlineCancel } from "react-icons/md"
 import { TbTrashXFilled } from "react-icons/tb"
 
-function deepComparison( obj1, obj2){
-    console.log(obj1, obj2)
-    let result = []
-    if( obj1 === obj2)
+function valueCompare(value1, value2){
+    if(value1 === value2){
         return true
-    if(typeof obj1 === "object" && obj1 !== null && typeof obj2 === "object" && obj2 !== null){
-        const keys1 = Object.keys(obj1)
-        const keys2 = Object.keys(obj2)
-
-        for( let key of keys1 ){
-            if( !keys2.includes(key) || !deepComparison(obj1[key], obj2[key])){
-                result.push(false)
-            }
-            result.push(true)
-        }
-        return result
+    }else{
+        return false
     }
-    result.push(false)
-    console.log(result)
+}
+
+function deepComparison( obj1, obj2){
+    let counter = 0
+    let result = []
+    if( obj1 === obj2){
+        return true
+    }
+    if(typeof obj1 !== "object" || obj1 === null || typeof obj2 !== "object" || obj2 === null){
+        return false
+    }
+    const keys1 = Object.keys(obj1)
+    const keys2 = Object.keys(obj2)
+    for( let key of keys1 ){
+        counter++
+        if(valueCompare(obj1[key], obj2[key])){
+            result.push(true)
+        }else{
+            result.push(false)
+        }
+    }
     return result
 }
 
 function compare(option1, option2){
-    
-    console.log(option1)
+    let result = []
     if( option1 === option2)
         return true;
     if( !Array.isArray(option1) || !Array.isArray(option2))
@@ -42,13 +49,12 @@ function compare(option1, option2){
     if(option1.length !== option2.length)
         return false
     for(let i = 0; i < option1.length; i++){
-        // console.log(option1.length)
-        
-        if( !deepComparison(option1[i], option2[i]).includes(false) ){
-            return true
-        }
+        result.push(...deepComparison(option1[i], option2[i]))
     }
-    return false
+    if(result.includes(false)){
+        return false
+    }
+    return true
 }
 
 
@@ -192,23 +198,38 @@ function ExamQuestion({ question, questionId, removeQuestion }) {
 }
 
 function ExamPage(){
-    const [ score, setScore ] = React.useState(0)
+    // const [ score, setScore ] = React.useState(0)
+    const navigate = useNavigate()
     const examData = useLoaderData()
 
     function handleSubmit(event){
         event.preventDefault()
+        let score = 0
         const formData = new FormData(event.target)
         const submittedData = reformatFormData(formData)
         for(let i = 0; i < examData.questions.length; i++){
             // console.log(submittedData.questions[i].options)
             if(compare(examData.questions[i].options, submittedData.questions[i].options)){
-                setScore(prevScore => prevScore + 1)
+                score = score + 1
             }
         }
-        console.log(examData.questions)
-
         console.log(score)
-        
+        const data = {
+            username: retrieveData().username,
+            exam: examData.title,
+            score: score
+        }
+        const token = retrieveData().token
+        fetch('http://localhost:8000/api/exam/result/', {
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': `Token ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+        .then( data => navigate("/results"))
+        .catch(error => console.log(error.message))
     }
 
     return(
@@ -232,7 +253,7 @@ function ExamPage(){
                     </ul>
                 </div>
                     <ul>
-                        {examData.questions.map(
+                        {examData?.questions.map(
                             (question, index) => <ExamQuestion 
                                                     key={index} 
                                                     questionId={index + 1} 
