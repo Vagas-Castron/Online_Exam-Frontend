@@ -1,5 +1,5 @@
 import React from "react"
-import { redirect, useLocation, useNavigate } from "react-router-dom"
+import { redirect, useLocation, useNavigate, useLoaderData } from "react-router-dom"
 import StatisticsComponent from "./StatisticsComponent"
 import Information from "./Information"
 import arrowup from "../assets/arrow-up-icon1.png"
@@ -7,17 +7,35 @@ import arrowdown from "../assets/arrow-down-icon2.png"
 import "../svg.css"
 import { FaArrowCircleDown } from "react-icons/fa"
 import { FaArrowCircleUp } from "react-icons/fa"
-import { isAuthenticated, clearData } from "../utils"
+import { isAuthenticated, clearData, retrieveData } from "../utils"
 
 export async function loader() {
-    if(isAuthenticated()){
-        return null
-    }else{
-        return redirect("/")
+    const token = retrieveData()?.token
+    const userId = retrieveData().username.slice(-4)
+
+    const headers = {
+        'Authorization': `Token ${token}`,
+        // 'Content-Type': 'application/json'
     }
+    const response = await fetch(`http://localhost:8000/api/exam/result/${userId}`,
+       {
+            method: 'GET',
+            headers: headers,
+            // body: JSON.stringify({username: username})
+        }
+    )
+    const data = await response.json()
+    return data
+    // if(isAuthenticated()){
+    //     return null
+    // }else{
+    //     return redirect("/")
+    // }
 }
 
 function Results() {
+    const data = useLoaderData()
+    console.log(data)
     const [confirmation, setConfirmation] = React.useState(false)
     const location = useLocation()
     // const { score, totalScore, exam } = location?.state
@@ -41,7 +59,7 @@ function Results() {
 
     return(
         <form>
-            <StatisticsComponent/>
+            <StatisticsComponent score={data.score} totalScore={data.total_score}/>
             <header 
                 className="header-fm" 
                 name="show"

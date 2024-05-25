@@ -211,7 +211,7 @@ function ExamPage(){
         for(let i = 0; i < examData.questions.length; i++){
             // console.log(submittedData.questions[i].options)
             if(compare(examData.questions[i].options, submittedData.questions[i].options)){
-                score = score + 1
+                score = score + Number(examData.questions[i].point)
             }
         }
         console.log(score)

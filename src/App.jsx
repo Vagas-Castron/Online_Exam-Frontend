@@ -28,7 +28,7 @@ function App() {
             <Route path="exam-creation" element={<AllExamcontainer/>} loader={allExamLoader}  />
             <Route path="exam-creation/new-exam" element={<ExamCreateLayout />}  action={examCreationAction}/>
             <Route path="exam-creation/edit-exam/:id" element={<ExamEditContainer />} />
-            <Route path="results" element={<Results/>}  />
+            <Route path="results" element={<Results/>} loader={resultsLoader} />
             <Route path="user-management" element={<AllUsersContainer />} loader={allUserLoader} action={userAction} />
           </Route>
       </Route>
