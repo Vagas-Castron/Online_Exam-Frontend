@@ -10,27 +10,27 @@ import { FaArrowCircleUp } from "react-icons/fa"
 import { isAuthenticated, clearData, retrieveData } from "../utils"
 
 export async function loader() {
-    const token = retrieveData()?.token
-    const userId = retrieveData().username.slice(-4)
+    
+    if(isAuthenticated()){
+        const token = retrieveData()?.token
+        const userId = retrieveData().username.slice(-4)
 
-    const headers = {
-        'Authorization': `Token ${token}`,
-        // 'Content-Type': 'application/json'
-    }
-    const response = await fetch(`http://localhost:8000/api/exam/result/${userId}`,
-       {
-            method: 'GET',
-            headers: headers,
-            // body: JSON.stringify({username: username})
+        const headers = {
+            'Authorization': `Token ${token}`,
+            // 'Content-Type': 'application/json'
         }
-    )
-    const data = await response.json()
-    return data
-    // if(isAuthenticated()){
-    //     return null
-    // }else{
-    //     return redirect("/")
-    // }
+        const response = await fetch(`http://localhost:8000/api/exam/result/${userId}`,
+        {
+                method: 'GET',
+                headers: headers,
+                // body: JSON.stringify({username: username})
+            }
+        )
+        const data = await response.json()
+        return data
+    }else{
+        return redirect("/")
+    }
 }
 
 function Results() {
@@ -41,12 +41,20 @@ function Results() {
     // const { score, totalScore, exam } = location?.state
     const [ clicked, setClicked ] = React.useState()
 
-    const navigate = useNavigate()
 
-    function logUserOut(){
-        clearData()
-        navigate("/")
-    }
+    const timestamp = "2024-05-26T06:37:15.685584Z";
+    const date = new Date(data.submitted);
+    const formattedDate = date.toLocaleString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        // second: '2-digit',
+        hour12: false
+    });
+    console.log(formattedDate);  // Example output: "05/26/2024, 06:37:15"
+
     
     function handleClick(event){
         // const { name } = event.target
@@ -59,6 +67,15 @@ function Results() {
 
     return(
         <form>
+            <div className="header-fm">
+                <h1>Results</h1> 
+                <div>
+                    <span>
+                        Submitted: 
+                    </span>
+                    <span> {formattedDate}</span>
+                </div>
+            </div>
             <StatisticsComponent score={data.score} totalScore={data.total_score}/>
             <header 
                 className="header-fm" 

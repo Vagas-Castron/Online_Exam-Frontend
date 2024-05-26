@@ -1,7 +1,7 @@
 import React from "react"
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from "react-router-dom"
 import MainLayout from "./layouts/MainLayout"
-import ExamCreateLayout, {action as examCreationAction} from "./layouts/ExamCreateLayout"
+import ExamCreateLayout, {action as examCreationAction, loader as examCreationLoader} from "./layouts/ExamCreateLayout"
 import UserLogin from "./components/UserLogin"
 import Results, {loader as resultsLoader} from "./components/Results"
 import Information from "./components/Information"
@@ -22,11 +22,11 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
           <Route index element={<UserLogin />}/>
-          <Route element={<ContentLayout />}>
+          <Route element={<ContentLayout />} errorElement={<h1>Error Occured</h1>}>
             <Route path="dashboard" element={<h1>Dashboard Goes Here</h1>} />
             <Route path="exam" element={<ExamPage />} loader={examLoader} errorElement={<h1>Error Occured</h1>}/>
             <Route path="exam-creation" element={<AllExamcontainer/>} loader={allExamLoader}  />
-            <Route path="exam-creation/new-exam" element={<ExamCreateLayout />}  action={examCreationAction}/>
+            <Route path="exam-creation/new-exam" element={<ExamCreateLayout />} loader={examCreationLoader}  action={examCreationAction}/>
             <Route path="exam-creation/edit-exam/:id" element={<ExamEditContainer />} />
             <Route path="results" element={<Results/>} loader={resultsLoader} />
             <Route path="user-management" element={<AllUsersContainer />} loader={allUserLoader} action={userAction} />

@@ -1,23 +1,27 @@
 import React from 'react'
-import { useLoaderData, Link } from 'react-router-dom'
-import { retrieveData } from '../utils'
+import { useLoaderData, Link, redirect } from 'react-router-dom'
+import { isAuthenticated, retrieveData } from '../utils'
 import { MdNoteAdd } from "react-icons/md"
 import ExamCreateLayout from '../layouts/ExamCreateLayout'
 
 export async function loader(){
-    const token = retrieveData()?.token
-    const headers = {
-        'Authorization': `Token ${token}`,
-        'Content-Type': 'application/json'
-    }
-    const response = await fetch('http://localhost:8000/api/exam/all',
-       {
-            method: 'GET',
-            headers: headers
+    if(isAuthenticated()){
+        const token = retrieveData()?.token
+        const headers = {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'application/json'
         }
-    )
-    const data = await response.json()
-    return data
+        const response = await fetch('http://localhost:8000/api/exam/all',
+           {
+                method: 'GET',
+                headers: headers
+            }
+        )
+        const data = await response.json()
+        return data
+    }else {
+        return redirect("/")
+    }
 }
 
 export default function AllExamcontainer(){

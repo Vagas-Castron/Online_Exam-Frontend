@@ -25,7 +25,7 @@ function UserLogin() {
     React.useEffect(()=>{
         storeData(authData)
         if(authData?.success){
-            if(verifyToken(authData.token)){
+            if(authData.token){
                 storeData(authData)
                 if(authData.status?.toLowerCase() === "administrator"){
                     navigate("/exam-creation")

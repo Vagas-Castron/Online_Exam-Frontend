@@ -60,16 +60,17 @@ export async function authentication( userCredentials ){
 export function isAuthenticated(){
     const token = retrieveData()?.token; // Retrieve token from localStorage or wherever it's stored
     if (token) {
-      const isValid = verifyToken(token);
-      if (isValid) {
-        console.log("Token is valid");
-        // Proceed with authenticated actions
-        return true
-      } else {
-        console.log("Token is invalid");
-        // Handle invalid token (e.g., redirect to login)
-        return false
-      }
+      // const isValid = verifyToken(token);
+      // if (isValid) {
+      //   console.log("Token is valid");
+      //   // Proceed with authenticated actions
+      //   return true
+      // } else {
+      //   console.log("Token is invalid");
+      //   // Handle invalid token (e.g., redirect to login)
+      //   return false
+      // }
+      return true
     } else {
       console.log("Token not found");
       // Handle missing token (e.g., redirect to login)

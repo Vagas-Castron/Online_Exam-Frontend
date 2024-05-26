@@ -6,7 +6,6 @@ function StatisticsComponent({ score, totalScore }) {
     return (
         <>
             {/* <div className="form-content"> */}
-                <div className="header-fm"><h1>Results</h1></div>
                 <div className="form-content">
                     <div className="question-container">
                         <div class="flex-wrapper">
@@ -19,15 +18,15 @@ function StatisticsComponent({ score, totalScore }) {
                                         a 15.9155 15.9155 0 0 1 0 -31.831"
                                     />
                                     <path class="circle"
-                                        stroke-dasharray={`${(totalScore / totalScore) * 100}, 100`}
+                                        stroke-dasharray={`${((totalScore - score) / totalScore) * 100}, 100`}
                                         d="M18 2.0845
                                         a 15.9155 15.9155 0 0 1 0 31.831
                                         a 15.9155 15.9155 0 0 1 0 -31.831"
                                     />
-                                    <text x="18" y="20.35" class="percentage">{totalScore}</text>
+                                    <text x="18" y="20.35" class="percentage">{totalScore - score}</text>
                                     </svg>
                                 </div>
-                                <div>Total Points</div>
+                                <div>Missed Points</div>
                             </div>
                             
                             <div class="single-chart">
@@ -64,7 +63,7 @@ function StatisticsComponent({ score, totalScore }) {
                                         a 15.9155 15.9155 0 0 1 0 31.831
                                         a 15.9155 15.9155 0 0 1 0 -31.831"
                                     />
-                                    <text x="18" y="20.35" class="percentage">{((score / totalScore) * 100).toFixed(1)}</text>
+                                    <text x="18" y="20.35" class="percentage">{((score / totalScore) * 100).toFixed(0)}</text>
                                     </svg>
                                 </div>
                                 <div>Performance</div>

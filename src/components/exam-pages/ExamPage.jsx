@@ -63,19 +63,23 @@ function compare(option1, option2){
 
 
 export async function loader() {
-    const token = retrieveData()?.token
-    const headers = {
-        'Authorization': `Token ${token}`,
-        // 'Content-Type': 'application/json'
-    }
-    const response = await fetch('http://localhost:8000/api/exam/23',
-       {
-            method: 'GET',
-            headers: headers
+    if(isAuthenticated()){
+        const token = retrieveData()?.token
+        const headers = {
+            'Authorization': `Token ${token}`,
+            // 'Content-Type': 'application/json'
         }
-    )
-    const data = await response.json()
-    return data
+        const response = await fetch('http://localhost:8000/api/exam/23',
+           {
+                method: 'GET',
+                headers: headers
+            }
+        )
+        const data = await response.json()
+        return data
+    }else {
+        return redirect("/")
+    }
 }
 
 
@@ -230,7 +234,7 @@ function ExamPage(){
             },
             body: JSON.stringify(data)
         })
-        // .then( data => navigate("/results"))
+        .then( data => navigate("/results"))
         .catch(error => console.log(error.message))
     }
 
