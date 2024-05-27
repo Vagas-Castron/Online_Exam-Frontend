@@ -5,11 +5,11 @@
 }
 
 :root {
-    --bg-color: rgba(0, 139, 139, 0.089);
-    --header-bg-color: #666565;
-    --footer-bg-color: #2a6783;
+    --bg-color: #eeeeee;
+    --header-bg-color: #f1f1f1;
+    --footer-bg-color: #2c296b;
     --font-color: whitesmoke;
-    --main-color: #317a9c;
+    --main-color: #1e73be;
     --accent-color: orange;
     --sidebar-bg-color: #12171e;
 }
@@ -38,13 +38,63 @@ header {
     padding: 1rem 2rem;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.151);
     z-index: 1;
-    background-color: var(--header-bg-color);
-    /* background-color: rgb(230, 255, 255); */
+    /* background-image: linear-gradient(var(--header-bg-color), white);
+    background-position: top; */
+    background-color: var(--bg-color);
 }
 
-.menu-items {
-    display: none;
+.header-nav ul{
+    list-style-type: none;
 }
+
+.header-nav ul .dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.dropdown {
+    position: relative;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.dropdown ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    padding-top: 1.5rem;
+}
+
+.dropdown ul li {
+    padding: 0.5rem 1rem;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.219);
+    transition: all 0.2s ease;
+
+}
+
+.dropdown ul li:hover {
+    background-color: whitesmoke;
+}
+
+.dropdown:hover .menu-items {
+    display: block;
+}
+
+.logo-container {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+
+}
+
 
 footer {
     position: sticky;
@@ -83,7 +133,7 @@ footer {
 
 .error-container {
     text-align: center;
-    /* background-color: red; */
+    height: 7.5%;
     color: red;
 }
 
@@ -160,7 +210,7 @@ input[id="point-input"] {
 
 .form-content {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     padding: 0 0 0 0;
     display: flex;
     flex-direction: column;
@@ -186,7 +236,7 @@ input[id="point-input"] {
 
 .header-fm {
     padding: 0.5rem;
-    background-color: #317a9c;
+    background-color: var(--main-color);
     color: white;
     border-radius: 10px 10px 0 0;
     display: flex;
@@ -199,14 +249,29 @@ input[id="point-input"] {
 .floating-fm {
     width: max(50%, 400px);
     justify-self: center;
-    height: 100%;
+    height: 90%;
     margin: 0 auto;
-    border-radius: 0 0 10px 10px;
+    border-radius: 10px;
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.274);
     border-bottom: 2px solid var(--main-color);
-    background-color: rgb(213, 241, 241);
+    background-color: var(--bg-color);
 }
 
+.floating-fm input:first-child {
+    margin-top: 1.5rem;
+}
+
+.floating-fm input, .floating-fm select {
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.274);
+}
+
+.float {
+    width: 100%;
+}
+
+header[name="show"] {
+    margin-top: 1.5rem;
+}
 
 button {
     font-size: 16px;
@@ -221,9 +286,6 @@ button {
     align-items: center;
 }
 
-.dropdown-btn {
-    padding: 0.25rem;
-}
 
 .login-button {
     margin: 1rem auto;
@@ -335,6 +397,10 @@ button {
     padding: 0.15rem;
 }
 
+.greencheck .question-container input[type="checkbox"] {
+    color: green
+}
+
 .submit-button {
     float: right; 
     margin-top: 1rem;
@@ -356,6 +422,7 @@ button {
     margin: 0 auto;
     padding: 1rem 0 4rem;
 }
+
 
 .questions-form {
     display: flex;
@@ -409,7 +476,7 @@ button {
     grid-template-areas: "HH HH"
                           "SS MM";
     grid-template-columns: auto 1fr;
-    grid-template-rows: 60px 1fr;
+    grid-template-rows: 80px 1fr;
 }
 
 .content {
@@ -473,7 +540,7 @@ button {
 
 
 .active-link {
-    border-bottom: 1px solid orange;
+    border-bottom: 1px solid var(--accent-color);
 }
 
 
@@ -577,7 +644,7 @@ button {
 }
 
 .create-options a:hover span {
-    border-bottom: 4px solid orange;
+    border-bottom: 4px solid var(--accent-color);
     font-size: 1.75rem;
     font-weight: 600;
 }

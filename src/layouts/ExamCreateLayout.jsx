@@ -9,6 +9,7 @@ import { IoIosAddCircleOutline } from "react-icons/io"
 import { MdOutlineCancel } from "react-icons/md"
 import { TbTrashXFilled } from "react-icons/tb"
 import { reformatFormData  } from '../utils';
+import ExamQuestion from '../components/exam-pages/QuestionsForm';
 
 export async function action({ request }) {
     const formData = await request.formData()
@@ -44,144 +45,144 @@ export async function loader(){
 }
 
 
-function ExamOption({ questionId, optionId, removeOption }) {
-    function optionLetter(optionId){
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        return letters[optionId]
-    }
+// function ExamOption({ questionId, optionId, removeOption }) {
+//     function optionLetter(optionId){
+//         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+//         return letters[optionId]
+//     }
 
 
-    function handleClick(event){
-        event.preventDefault()
-        removeOption(optionId)
-    }
+//     function handleClick(event){
+//         event.preventDefault()
+//         removeOption(optionId)
+//     }
 
 
-    return (
-        <li>
-            <input 
-                type="checkbox"
-                name={`selector-${questionId}${optionLetter(optionId - 1)}`} 
-            />
-            <input
-                type="text"
-                id="text-input"
-                name={`option-${questionId}${optionLetter(optionId - 1)}`}
-                placeholder={`Option ${optionId}`}
-            />
-            <div
-                className='option-rem'
-                onClick={e => handleClick(e)}
-            >
-                <MdOutlineCancel size="1.5em"/>
-            </div>
-        </li>
-    );
-}
+//     return (
+//         <li>
+//             <input 
+//                 type="checkbox"
+//                 name={`selector-${questionId}${optionLetter(optionId - 1)}`} 
+//             />
+//             <input
+//                 type="text"
+//                 id="text-input"
+//                 name={`option-${questionId}${optionLetter(optionId - 1)}`}
+//                 placeholder={`Option ${optionId}`}
+//             />
+//             <div
+//                 className='option-rem'
+//                 onClick={e => handleClick(e)}
+//             >
+//                 <MdOutlineCancel size="1.5em"/>
+//             </div>
+//         </li>
+//     );
+// }
 
-function ExamQuestion({ questionId, removeQuestion}) {
-    const [optionCount, setOptionCount] = React.useState(1);
-    const [options, setOptions] = React.useState([{id: 1}]);
-    const [point, setPoint] = React.useState(1)
+// function ExamQuestion({ questionId, removeQuestion}) {
+//     const [optionCount, setOptionCount] = React.useState(1);
+//     const [options, setOptions] = React.useState([{id: 1}]);
+//     const [point, setPoint] = React.useState(1)
 
-    React.useEffect(() => {
-        const pointInput = document.querySelector("#point-input")
-        function inputConditioning(e){
-            if(e.keyCode === 189 || e.keyCode === 109 || e.keyCode === 40 || e.keyCode === 13){
-                e.preventDefault()
-                return false
-            }
-        }
+//     React.useEffect(() => {
+//         const pointInput = document.querySelector("#point-input")
+//         function inputConditioning(e){
+//             if(e.keyCode === 189 || e.keyCode === 109 || e.keyCode === 40 || e.keyCode === 13){
+//                 e.preventDefault()
+//                 return false
+//             }
+//         }
 
-        if(pointInput){
-            pointInput.addEventListener( 'keydown', inputConditioning)
-        }
+//         if(pointInput){
+//             pointInput.addEventListener( 'keydown', inputConditioning)
+//         }
 
-        return () => {
-            if(pointInput){
-                pointInput.removeEventListener("keydown", inputConditioning)
-            }
-        }
-    }, [])
+//         return () => {
+//             if(pointInput){
+//                 pointInput.removeEventListener("keydown", inputConditioning)
+//             }
+//         }
+//     }, [])
 
-    function handleClick(event) {
-        event.preventDefault()
-        const targetDiv = event.target.closest("div[data-name]")
-        const name = targetDiv? targetDiv.getAttribute('data-name'): null
-        console.log(name)
-        if(name === "question-del"){
-            removeQuestion(questionId)
-        }else{
-            setOptionCount(prevCount => prevCount + 1)
-            setOptions(prevOptions => {
-                const optionId = prevOptions.length + 1
-                return [
-                    ...prevOptions,
-                    {id: optionId},
-                ]
-            });
-        }
-    }
+//     function handleClick(event) {
+//         event.preventDefault()
+//         const targetDiv = event.target.closest("div[data-name]")
+//         const name = targetDiv? targetDiv.getAttribute('data-name'): null
+//         console.log(name)
+//         if(name === "question-del"){
+//             removeQuestion(questionId)
+//         }else{
+//             setOptionCount(prevCount => prevCount + 1)
+//             setOptions(prevOptions => {
+//                 const optionId = prevOptions.length + 1
+//                 return [
+//                     ...prevOptions,
+//                     {id: optionId},
+//                 ]
+//             });
+//         }
+//     }
 
-    function removeOption(optionId){
-        setOptions(prevOptions => {
-            // console.log("deleting...", optionId)
-            if(prevOptions.length > 0){
-                const newOptions = prevOptions.filter(option => option.id !== optionId - 1)
-                // setOptionCount(prevCount => prevCount - 1)
-                const sortedOptions = newOptions.map((option, index) => {
-                    return {id: index + 1}
-                })
-                console.log(newOptions)
-                return sortedOptions
-            }else{
-                return prevOptions
-            }
-        })
-    }
+//     function removeOption(optionId){
+//         setOptions(prevOptions => {
+//             // console.log("deleting...", optionId)
+//             if(prevOptions.length > 0){
+//                 const newOptions = prevOptions.filter(option => option.id !== optionId - 1)
+//                 // setOptionCount(prevCount => prevCount - 1)
+//                 const sortedOptions = newOptions.map((option, index) => {
+//                     return {id: index + 1}
+//                 })
+//                 console.log(newOptions)
+//                 return sortedOptions
+//             }else{
+//                 return prevOptions
+//             }
+//         })
+//     }
 
-    return (
-        <div className='question-container'>
-            <div className="point-container">
-                <span></span>
-            </div>    
-            <div className='question'>
-                <textarea
-                    name={`question-${questionId}`}
-                    rows={1}
-                    placeholder="Enter Question"
-                />
-                <input
-                        type='number'
-                        name={`point-${questionId}`}
-                        id="point-input"
-                        min={1}
-                        max={10}
-                        placeholder='Point'
-                    />
-                <div
-                    data-name="question-del"
-                    className='action-btn cancel-btn qn-rem'
-                    onClick={e => handleClick(e)}
-                >
-                    <TbTrashXFilled size="1.5em" name="trash"/>
-                </div>
-            </div>
-            <ul>
-                {options.map(
-                    option => <ExamOption 
-                                    key={option.id} 
-                                    questionId={questionId} 
-                                    optionId={option.id} 
-                                    removeOption={() => removeOption(option.id)}
-                                />
-                            )
-                }
-            </ul>
-            <div className='option-add' onClick={handleClick}>Add option</div>
-        </div>
-    );
-}
+//     return (
+//         <div className='question-container'>
+//             <div className="point-container">
+//                 <span></span>
+//             </div>    
+//             <div className='question'>
+//                 <textarea
+//                     name={`question-${questionId}`}
+//                     rows={1}
+//                     placeholder="Enter Question"
+//                 />
+//                 <input
+//                         type='number'
+//                         name={`point-${questionId}`}
+//                         id="point-input"
+//                         min={1}
+//                         max={10}
+//                         placeholder='Point'
+//                     />
+//                 <div
+//                     data-name="question-del"
+//                     className='action-btn cancel-btn qn-rem'
+//                     onClick={e => handleClick(e)}
+//                 >
+//                     <TbTrashXFilled size="1.5em" name="trash"/>
+//                 </div>
+//             </div>
+//             <ul>
+//                 {options.map(
+//                     option => <ExamOption 
+//                                     key={option.id} 
+//                                     questionId={questionId} 
+//                                     optionId={option.id} 
+//                                     removeOption={() => removeOption(option.id)}
+//                                 />
+//                             )
+//                 }
+//             </ul>
+//             <div className='option-add' onClick={handleClick}>Add option</div>
+//         </div>
+//     );
+// }
 
 
 

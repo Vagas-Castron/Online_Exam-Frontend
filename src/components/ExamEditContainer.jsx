@@ -1,6 +1,7 @@
 import React from "react"
 import { Form, useLoaderData, useParams } from "react-router-dom"
 import { retrieveData } from "../utils"
+import ExamQuestion from "./exam-pages/QuestionsForm"
 
 
 export async function examfetcher(examId){
@@ -25,10 +26,48 @@ export default function ExamEditContainer(){
     console.log(data)
     console.log(id)
     React.useEffect(() => {
-        const exam = examfetcher(id)
-        console.log(exam)
+        const examData = examfetcher(id)
+        console.log(examData)
     },[])
     return (
-        <h2>Exam editing page</h2>
+        <>
+            <Form method="post" onSubmit={ e => handleSubmit(e)}>
+                <div className="form-content user-side">
+                    <div className="question-container">
+                        <ul>
+                            <li>
+                                <input 
+                                    type='text'
+                                    name='title'
+                                    value={examData.title}
+                                    readOnly={true}
+                                />
+                                <div>
+                                    <span>Timer: </span>
+                                    <span>{examData.timer} Min</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul>
+                        {examData?.questions.map(
+                            (question, index) => <ExamQuestion 
+                                                    key={index} 
+                                                    questionId={index + 1} 
+                                                    // optionId={option.id} 
+                                                    // removeOption={() => removeOption(option.id)}
+                                                    question={question}
+                                                />
+                                    )
+                        }
+                    </ul>
+                    <div className='btn-container'>
+                        <span></span>
+                        <button>submit</button>
+                    </div>
+                </div>
+            </Form>
+        </>
+        // <h2>Exam editing page</h2>
     )
 }

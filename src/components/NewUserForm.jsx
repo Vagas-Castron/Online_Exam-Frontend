@@ -44,11 +44,14 @@ export default function NewUserForm({formTrigger}){
     return (
         <div className='floating'>
             <div className="floating-fm">
-                <div className='header-fm'>
+                <div className='header-fm float'>
                     <h2>Create New User</h2>
                     <button className='nopad-btn' onClick={handleClick}>
                         <MdCancel size="1.5em"/>
                     </button>
+                </div>
+                <div className="error-container">
+
                 </div>
                 <Form method="post" className='user-rel'>
                     <div className="form-content">
@@ -85,8 +88,11 @@ export default function NewUserForm({formTrigger}){
                             <option value='team leader'>Team Leader</option>
                             <option value='agent'>Customer Care Agent</option>
                         </select>
-
-                        <button>submit</button>
+                        <div className='btn-container'>
+                            <span></span>
+                            <button>submit</button>
+                            <span></span>
+                        </div>
                     </div>
                 </Form>
             </div>

@@ -9,6 +9,7 @@ import { examSubmit, isAuthenticated, reformatFormData } from "../../utils"
 import { retrieveData } from '../../utils'
 import { MdOutlineCancel } from "react-icons/md"
 import { TbTrashXFilled } from "react-icons/tb"
+import ExamQuestion from "./QuestionsForm"
 
 function valueCompare(value1, value2){
     if(value1 === value2){
@@ -83,124 +84,125 @@ export async function loader() {
 }
 
 
-function ExamOption({ option, questionId, optionId, removeOption }) {
-    function optionLetter(optionId){
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        return letters[optionId]
-    }
-    // console.log(questionId, optionId)
+// function ExamOption({ option, questionId, optionId, removeOption }) {
+//     function optionLetter(optionId){
+//         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+//         return letters[optionId]
+//     }
+//     // console.log(questionId, optionId)
 
-    function handleChange(event){
-        const { name } = event.target
-        console.log(name)
-    }
+//     function handleChange(event){
+//         const { name } = event.target
+//         console.log(name)
+//     }
 
-    function handleClick(event){
-        event.preventDefault()
-        removeOption(optionId)
-    }
+//     function handleClick(event){
+//         event.preventDefault()
+//         removeOption(optionId)
+//     }
 
 
-    return (
-        <li>
-            <input 
-                type="checkbox"
-                name={`selector-${questionId}${optionLetter(optionId - 1)}`}
+//     return (
+//         <li>
+//             <input 
+//                 type="checkbox"
+//                 name={`selector-${questionId}${optionLetter(optionId - 1)}`}
+//                 checked={option? option.correct: false}
                 
-            />
-            <input
-                type="text"
-                name={`option-${questionId}${optionLetter(optionId - 1)}`}
-                placeholder={`Option ${optionId}`}
-                value={option? option.text: ""} 
-                readOnly={true}
-            />
-            {   
-                !option &&   <div
-                                className='option-rem'
-                                onClick={e => handleClick(e)}
-                            >
-                                <MdOutlineCancel size="1.5em"/>
-                            </div>
-            }
-        </li>
-    );
-}
+//             />
+//             <input
+//                 type="text"
+//                 name={`option-${questionId}${optionLetter(optionId - 1)}`}
+//                 placeholder={`Option ${optionId}`}
+//                 value={option? option.text: ""} 
+//                 readOnly={true}
+//             />
+//             {   
+//                 !option &&   <div
+//                                 className='option-rem'
+//                                 onClick={e => handleClick(e)}
+//                             >
+//                                 <MdOutlineCancel size="1.5em"/>
+//                             </div>
+//             }
+//         </li>
+//     );
+// }
 
-function ExamQuestion({ question, questionId, removeQuestion }) {
-    const [optionCount, setOptionCount] = React.useState(0);
-    const [options, setOptions] = React.useState([{id: 1}]);
+// function ExamQuestion({ question, questionId, removeQuestion }) {
+//     const [optionCount, setOptionCount] = React.useState(0);
+//     const [options, setOptions] = React.useState([{id: 1}]);
 
-    function handleClick(event) {
-        event.preventDefault()
-        const targetDiv = event.target.closest("div[data-name]")
-        const name = targetDiv? targetDiv.getAttribute('data-name'): null
-        console.log(name)
-        if(name === "question-del"){
-            removeQuestion(questionId)
-        }else{
-            setOptionCount(prevCount => prevCount + 1)
-            setOptions(prevOptions => {
-                const optionId = options.length + 1
-                return [
-                    ...prevOptions,
-                    {id: optionId},
-                ]
-            });
-        }
-    }
+//     function handleClick(event) {
+//         event.preventDefault()
+//         const targetDiv = event.target.closest("div[data-name]")
+//         const name = targetDiv? targetDiv.getAttribute('data-name'): null
+//         console.log(name)
+//         if(name === "question-del"){
+//             removeQuestion(questionId)
+//         }else{
+//             setOptionCount(prevCount => prevCount + 1)
+//             setOptions(prevOptions => {
+//                 const optionId = options.length + 1
+//                 return [
+//                     ...prevOptions,
+//                     {id: optionId},
+//                 ]
+//             });
+//         }
+//     }
 
-    function removeOption(optionId){
-        setOptions(prevOptions => {
-            // console.log("deleting...", optionId)
-            if(prevOptions.length > 0){
-                const newOptions = prevOptions.filter(option => option.id !== optionId - 1)
-                // setOptionCount(prevCount => prevCount - 1)
-                const sortedOptions = newOptions.map((option, index) => {
-                    return {id: index + 1}
-                })
-                console.log(sortedOptions)
-                return sortedOptions
-            }else{
-                return prevOptions
-            }
-        })
-    }
+//     function removeOption(optionId){
+//         setOptions(prevOptions => {
+//             // console.log("deleting...", optionId)
+//             if(prevOptions.length > 0){
+//                 const newOptions = prevOptions.filter(option => option.id !== optionId - 1)
+//                 // setOptionCount(prevCount => prevCount - 1)
+//                 const sortedOptions = newOptions.map((option, index) => {
+//                     return {id: index + 1}
+//                 })
+//                 console.log(sortedOptions)
+//                 return sortedOptions
+//             }else{
+//                 return prevOptions
+//             }
+//         })
+//     }
 
-    return (
-        <div className='question-container'>
-            <div className='question'>
-                <textarea
-                    name={`question-${questionId}`}
-                    value={question? question.text: ""}
-                    readOnly={true}
-                    rows={1}
-                />
-                <span>{question.point} Points</span>
-                {   !question && <div
-                                    data-name="question-del"
-                                    className='action-btn nopad-btn qn-rem'
-                                    onClick={e => handleClick(e)}
-                                >
-                                    <TbTrashXFilled size="1.5em" name="trash"/>
-                                </div>}
-            </div>
-            <ul>
-                {question.options.map(
-                    (option, index) => <ExamOption 
-                                    key={index} 
-                                    questionId={questionId} 
-                                    optionId={index + 1} 
-                                    // removeOption={() => removeOption(option.id)}
-                                    option={option}
-                                />
-                            )
-                }
-            </ul>
-            { !question && <div className='option-add' onClick={handleClick}>Add option</div>}
-        </div>
-    );
-}
+//     return (
+//         <div className='question-container'>
+//             <div className='question'>
+//                 <textarea
+//                     name={`question-${questionId}`}
+//                     value={question? question.text: ""}
+//                     readOnly={true}
+//                     rows={1}
+//                 />
+//                 <span>{question.point} Points</span>
+//                 {   !question && <div
+//                                     data-name="question-del"
+//                                     className='action-btn nopad-btn qn-rem'
+//                                     onClick={e => handleClick(e)}
+//                                 >
+//                                     <TbTrashXFilled size="1.5em" name="trash"/>
+//                                 </div>}
+//             </div>
+//             <ul>
+//                 {question.options.map(
+//                     (option, index) => <ExamOption 
+//                                     key={index} 
+//                                     questionId={questionId} 
+//                                     optionId={index + 1} 
+//                                     // removeOption={() => removeOption(option.id)}
+//                                     option={option}
+//                                 />
+//                             )
+//                 }
+//             </ul>
+//             { !question && <div className='option-add' onClick={handleClick}>Add option</div>}
+//         </div>
+//     );
+// }
 
 function ExamPage(){
     // const [ score, setScore ] = React.useState(0)
@@ -242,22 +244,22 @@ function ExamPage(){
         <>
             <Form method="post" onSubmit={ e => handleSubmit(e)}>
                 <div className="form-content user-side">
-                <div className="question-container">
-                    <ul>
-                        <li>
-                            <input 
-                                type='text'
-                                name='title'
-                                value={examData.title}
-                                readOnly={true}
-                            />
-                            <div>
-                                <span>Timer: </span>
-                                <span>{examData.timer} Min</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                    <div className="question-container">
+                        <ul>
+                            <li>
+                                <input 
+                                    type='text'
+                                    name='title'
+                                    value={examData.title}
+                                    readOnly={true}
+                                />
+                                <div>
+                                    <span>Timer: </span>
+                                    <span>{examData.timer} Min</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                     <ul>
                         {examData?.questions.map(
                             (question, index) => <ExamQuestion 

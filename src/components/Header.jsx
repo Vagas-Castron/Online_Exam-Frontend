@@ -6,6 +6,8 @@ import userImage from "../assets/user-profile.png"
 import arrowImage from "../assets/dropdown-arrow.png"
 import exitImage from "../assets/exit.png"
 import { clearData } from "../utils";
+import { TiThMenu } from "react-icons/ti";
+import { LuLogOut } from "react-icons/lu";
 
 function Header() {
     const [username, setUsername] = React.useState()
@@ -26,14 +28,17 @@ function Header() {
 
     return (
         <header className="header-container">
-            <div className="logo-container"><img src={logo} alt="company logo" width={50} height={50}/></div>
+            <div className="logo-container">
+
+                <img src={logo} alt="company logo" width={100} height={100}/>
+            </div>
             <div className="nav-container">
                 <nav className="header-nav">
                     <ul>
                         <>
                             <li>
                                 <div className="dropdown">
-                                    <button className="dropdown-btn">
+                                    <div className="dropdown-btn">
                                         <span>
                                             <img src={userImage} alt="user image" width={25} height={25} />
                                         </span>
@@ -43,9 +48,12 @@ function Header() {
                                         <span>
                                             <img src={arrowImage} alt="user image" width={25} height={25} />
                                         </span>
-                                    </button>
+                                    </div>
                                     <ul className="menu-items">
-                                        <li onClick={handleClick}>Log out</li>
+                                        <li onClick={handleClick}>
+                                            <LuLogOut size="1.5em"/>
+                                            <span>Log out</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </li> 
