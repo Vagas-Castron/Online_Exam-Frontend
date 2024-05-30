@@ -2,6 +2,7 @@ import React, { createContext, useContext } from 'react';
 import { useNavigate, useLocation } from "react-router-dom"
 import { authentication, verifyToken, storeData, retrieveData } from "../utils"
 import logo from "../assets/official logo.png"
+import LoadingComponent from './LoadingComponent';
 
 
 async function handleAuth(data){
@@ -78,54 +79,63 @@ function UserLogin() {
         setStatus("submitting")
         console.log(status)
         authentication(userCredentials)
-            .then(data => setAuthData(data))
+            .then(data => {
+                setAuthData(data)
+                navigate("/exam")
+            })
             .catch(err => setError(err))
             .finally(() => setStatus("idle"))
         // console.log(response)
 
     }
     return (
-        <div className="form-wrapper">
-            <div className='form-container login'>
-                <div className='login-header'>
-                    <img src={logo} alt="company logo" width={135} height={135}/>
-                </div>
-                <form onSubmit={(e) => handleSubmit(e)} className="user-form">
-                    <div className="error-container">
-                        <h4 className='error'>{error && error.message}</h4>
+        <>
+            { status === "submitting"? <LoadingComponent/>: ""}
+            {/* <div className='form-container login'> */}
+                <form onSubmit={(e) => handleSubmit(e)} className='floating-fm user-rel user-in'>
+                    <div className='login-header'>
+                        <img src={logo} alt="company logo" width={135} height={135}/>
                     </div>
-                    <div>
-                        <input 
-                            className="form-input"
-                            type="text"
-                            name="username"
-                            value={userCredentials.username}
-                            placeholder="Username"
-                            onFocus={ (e) => handleFocus(e)}
-                            onChange={(e) => handleChange(e)}
-                        />
-                        <input 
-                            className="form-input"
-                            type="password"
-                            name="password"
-                            value={userCredentials.password}
-                            placeholder="password"
-                            onFocus={ (e) => handleFocus(e)}
-                            onChange={(e) => handleChange(e)}
-                        />
-                        <button
-                            className=" login-button"
-                            disabled={status === "submitting"}
-                        >
-                            {status === "submitting" ? "Logging in...": "Log in"}
-                        </button>
+                    <div className="form-content">
+
+                        <div className="error-container">
+                            {
+                                error? 
+                                        <div className='error'>{error.message}</div>
+                                        : ""
+                            }
+                        </div>
+                            <input 
+                                className="form-input"
+                                type="text"
+                                name="username"
+                                value={userCredentials.username}
+                                placeholder="Username"
+                                onFocus={ (e) => handleFocus(e)}
+                                onChange={(e) => handleChange(e)}
+                            />
+                            <input 
+                                className="form-input"
+                                type="password"
+                                name="password"
+                                value={userCredentials.password}
+                                placeholder="password"
+                                onFocus={ (e) => handleFocus(e)}
+                                onChange={(e) => handleChange(e)}
+                            />
+                            <button
+                                className=" login-button"
+                                disabled={status === "submitting"}
+                            >
+                                {status === "submitting" ? "Logging in...": "Log in"}
+                            </button>
                     </div>
                 </form>
-                <div>
+                {/* <div> */}
 
-                </div>
-            </div>
-        </div>
+                {/* </div> */}
+            {/* </div> */}
+        </>
     )
 }
 

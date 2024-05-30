@@ -4,6 +4,7 @@ import { isAuthenticated, retrieveData } from '../utils'
 import { TiUserAdd } from "react-icons/ti"
 import UserCreation from './UserCreation'
 import UserEdit from './UserEdit'
+import LoadingComponent from './LoadingComponent'
 
 
 // export async function action(){
@@ -33,17 +34,18 @@ export async function loader(){
 
 export default function AllUsersContainer(){
     const [formTrigger, setFormTrigger] = React.useState(false)
+    const [loading, setLoading] = React.useState(false)
     const data = useLoaderData()
     const location = useLocation()
     const username = location.state
-
+    console.log(location)
     function handleClick(event){
         setFormTrigger( prevState => !prevState)
     }
 
     return (
         <>
-            
+            {/* <LoadingComponent /> */}
             { formTrigger? <UserCreation formTrigger={setFormTrigger}/>: ''}
             { 
                 username && <UserEdit 

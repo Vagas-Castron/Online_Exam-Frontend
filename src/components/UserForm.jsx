@@ -36,9 +36,10 @@ import { MdCancel } from "react-icons/md"
 // }
 
 
-export default function UserForm({formTrigger, userInfo, setChanges, submit, handleDelete}){
+export default function UserForm({formTrigger, userInfo, setChanges, submit, handleDelete, error}){
     const navigate = useNavigate()
-
+    // const err = {...error}
+    console.log(error)
     function handleClick(event){
         formTrigger(false)
         navigate("/user-management")
@@ -53,14 +54,18 @@ export default function UserForm({formTrigger, userInfo, setChanges, submit, han
                         <MdCancel size="1.5em"/>
                     </button>
                 </div>
+    
                 <div className="error-container">
-
+                    {error &&
+                        <div className="error">
+                            <span>{error.message}</span>
+                        </div>
+                }
                 </div>
                {
                     userInfo?
                         <Form method="post" className='user-rel' onSubmit={e => submit(e)}>
                             <div className="form-content">
-
                                 <input 
                                     type='text'
                                     name='username'

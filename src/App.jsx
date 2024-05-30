@@ -14,17 +14,18 @@ import AllExamcontainer, {loader as allExamLoader} from "./components/AllExamcon
 import AllUsersContainer, {loader as allUserLoader} from "./components/AllUsersContainer"
 import {  action as userAction } from "./components/UserCreation"
 import ExamEditContainer from "./components/ExamEditContainer"
+import ErrorComponent from "./components/ErrorComponent"
 
 // loader={examLoader}
 function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<MainLayout />}>
-          <Route index element={<UserLogin />}/>
-          <Route element={<ContentLayout />} >
+      <Route path="/" element={<MainLayout />} >
+          <Route index element={<UserLogin />} errorElement={<ErrorComponent/>}/>
+          <Route element={<ContentLayout />} errorElement={<ErrorComponent/>}>
             <Route path="dashboard" element={<h1>Dashboard Goes Here</h1>} />
-            <Route path="exam" element={<ExamPage />} loader={examLoader} errorElement={<h1>Error Occured</h1>}/>
+            <Route path="exam" element={<ExamPage />} loader={examLoader}/>
             <Route path="exam-creation" element={<AllExamcontainer/>} loader={allExamLoader}  />
             <Route path="exam-creation/new-exam" element={<ExamCreateLayout />} loader={examCreationLoader}  action={examCreationAction}/>
             <Route path="exam-creation/edit-exam/:id" element={<ExamEditContainer />} />

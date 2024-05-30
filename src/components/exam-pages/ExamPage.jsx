@@ -10,6 +10,7 @@ import { retrieveData } from '../../utils'
 import { MdOutlineCancel } from "react-icons/md"
 import { TbTrashXFilled } from "react-icons/tb"
 import ExamQuestion from "./QuestionsForm"
+import LoadingComponent from "../LoadingComponent"
 
 function valueCompare(value1, value2){
     if(value1 === value2){
@@ -208,9 +209,12 @@ function ExamPage(){
     // const [ score, setScore ] = React.useState(0)
     const navigate = useNavigate()
     const examData = useLoaderData()
+    const [error, setError] = React.useState(null)
+    const [loading, setLoading] = React.useState(false)
     const status = retrieveData().status
     console.log(examData)
     function handleSubmit(event){
+        setLoading(prevState => !prevState)
         event.preventDefault()
         let score = 0
         const formData = new FormData(event.target)
@@ -238,11 +242,18 @@ function ExamPage(){
             body: JSON.stringify(data)
         })
         .then( data => navigate("/results"))
-        .catch(error => console.log(error.message))
+        .catch(error => {
+            setLoading(prevState => !prevState)
+            setError(error)
+        })
+        .finally(() => setLoading(prevState => !prevState))
     }
 
     return(
         <>
+            {
+                loading? <LoadingComponent />: ""
+            }
             <Form method="post" onSubmit={ e => handleSubmit(e)}>
                 <div className="form-content user-side">
                     <div className="question-container">
@@ -276,7 +287,7 @@ function ExamPage(){
                     {
                         status ==="agent"
                         &&
-                        <div className='btn-container'>
+                        <div className='btn-container lim-width'>
                             <span></span>
                             <button>submit</button>
                         </div>

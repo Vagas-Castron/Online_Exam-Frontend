@@ -276,7 +276,7 @@ function ExamCreateLayout({ formTrigger}) {
                             }
                             <div>
                             </div>
-                            <div className='btn-container'>
+                            <div className='btn-container lim-width'>
                                 <button 
                                     name="add" 
                                     className="action-btn"

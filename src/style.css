@@ -112,7 +112,7 @@ footer {
     width: 100%;
 }
 
-.form-wrapper {
+/* .form-wrapper {
     width: max(40%, 400px);
     margin: 0 auto;
     padding: 2rem;
@@ -120,9 +120,9 @@ footer {
     height: 95vh;
     align-items: center;
     justify-content: center;
-}
+} */
 
-.login {
+/* .login {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -132,20 +132,30 @@ footer {
     height: 100%;
     padding: 2rem;
     margin: 0 auto;
-}
+} */
 
 
 
 .error-container {
+    height: 40px;
+    width: 70%;
+    margin: 0.5rem auto;
     text-align: center;
-    height: 7.5%;
-    color: red;
+}
+
+.error {
+    padding: 0.5rem;
+    background-color: rgb(218, 82, 82);
+    color: white;
+    text-align: center;
+
 }
 
 
 
+
 .floating{
-    position: absolute;
+    position: fixed;
     height: 80vh;
     width: max(95%, 700px);
     z-index: 1;
@@ -203,14 +213,18 @@ input[id="point-input"] {
     justify-content: space-between;
 }
 
-.user-rel input, .user-rel select{
+.floating-fm input, .floating-fm select{
     width: 40%;
     font-size: 16px;
     padding: 10px;
     border-radius: 10px;
     border: none;
     outline: none;
-    margin: 0.25rem auto;
+    margin: 0.15rem auto;
+}
+
+.user-in {
+    background-color: green;
 }
 
 .form-content {
@@ -260,10 +274,12 @@ input[id="point-input"] {
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.274);
     border-bottom: 2px solid var(--main-color);
     background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
 }
 
 .floating-fm input:first-child {
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
 }
 
 .floating-fm input, .floating-fm select {
@@ -422,7 +438,12 @@ button {
     margin: 0 auto;
     width: 100%
 }
-.questions-container {
+.lim-width {
+    width: max(70%, 500px)
+}
+
+
+/* .questions-container {
     width: max(60%, 600px);
     margin: 0 auto;
     padding: 1rem 0 4rem;
@@ -440,7 +461,7 @@ button {
 .question-section {
     padding: 1rem;
     background-color: white;
-}
+} */
 
 .question-container {
     display: flex;
@@ -488,8 +509,9 @@ button {
     grid-area: MM;
     justify-items: center;
     padding: 1rem;
-    position: relative;
+    /* position: relative; */
     transition: all 0.2s ease;
+    margin-bottom: 4rem;
 }
 
 .sidebar {
@@ -687,4 +709,44 @@ button {
     border-bottom: 2px solid var(--main-color);
 }
 
+.loader-container {
+    width: max(50px, 15%);
+    height: max(50px, 15%);
+    margin: 0 auto;
+    position: absolute;
+    top: 45%;
+    right: 45%;
+    background-color: white;
+    border-radius: 15px;
+    display: grid;
+    place-content: center;
+}
 
+.loader {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 7.5px solid whitesmoke;
+    border-bottom: 7.5px solid var(--main-color);
+    border-top: 7.5px solid var(--main-color);
+    animation: loading 2s linear infinite; 
+    z-index: 1;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(270deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

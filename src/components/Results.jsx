@@ -19,15 +19,25 @@ export async function loader() {
             'Authorization': `Token ${token}`,
             // 'Content-Type': 'application/json'
         }
-        const response = await fetch(`http://localhost:8000/api/exam/result/${userId}`,
-        {
-                method: 'GET',
-                headers: headers,
-                // body: JSON.stringify({username: username})
+        try{
+            const response = await fetch(`http://localhost:8000/api/exam/result/${userId}`,
+            {
+                    method: 'GET',
+                    headers: headers,
+                    // body: JSON.stringify({username: username})
+                }
+            )
+            const data = await response.json()
+            if(response.status !== 200){
+                throw {
+                    message: data.message,
+                }
             }
-        )
-        const data = await response.json()
-        return data
+            return data
+        }catch(error){
+            console.log(error.message)
+            return error
+        }
     }else{
         return redirect("/")
     }
@@ -164,6 +174,8 @@ function Results() {
     // const { score, totalScore, exam } = location?.state
     const [ clicked, setClicked ] = React.useState(true)
 
+    // console.log(data.submitted)
+    const error = data?.message || null
 
     const date = new Date(data.submitted);
     const formattedDate = date.toLocaleString('en-US', {
@@ -185,7 +197,7 @@ function Results() {
 
     return(
         
-            data !== undefined ?
+            error === null ?
             <form>
             <div className="header-fm">
                 <h1>Results</h1> 
@@ -242,7 +254,7 @@ function Results() {
             </div>
         </form>
         :
-        <h2>No Data</h2>
+        <h2>{error}</h2>
    
     )
 }

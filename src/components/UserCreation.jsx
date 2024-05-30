@@ -1,7 +1,8 @@
 import React from "react"
-import { redirect } from "react-router-dom"
+import { redirect, useActionData, useNavigate } from "react-router-dom"
 import UserForm from "./UserForm"
 import { retrieveData } from "../utils"
+import LoadingComponent from "./LoadingComponent"
 
 
 
@@ -21,23 +22,39 @@ export async function action({ request }){
         confirm_password: formData.get("confirm_password")
     }
     try{
-        const response = fetch("http://localhost:8000/api/users/create-user", {
+        const response = await fetch("http://localhost:8000/api/users/create-user", {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(userData)
         })
         const data = await response.json()
-        console.log("creation successfully")
-        return redirect("/user-management")
+        if(response.status !== 200){
+            throw data
+        }
+        console.log(data)
+        return null
     }catch(error){
-        return error.message
+        return error
     }
 }
 
 
 export default function UserCreation({ formTrigger }) {
+    const error = useActionData()
+    const navigate = useNavigate()
+    console.log(error)
+
+    React.useEffect(() => {
+        if(error === null){
+            formTrigger(false)
+            return navigate("/user-management")
+        }
+    })
     
     return(
-        <UserForm formTrigger={formTrigger} />
+        <>
+            {/* <LoadingComponent /> */}
+            <UserForm formTrigger={formTrigger} error={error}/>
+        </>
     )
 }
