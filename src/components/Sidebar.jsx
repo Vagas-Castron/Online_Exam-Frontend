@@ -14,6 +14,8 @@ import logo from "../assets/official logo.png"
 
 export default function Sidebar() {
     const status = retrieveData().status
+    const username = retrieveData().username.split("/")
+    const user = username[3].toUpperCase()
     console.log(status)
     return (
         <div className="sidebar-menu">
@@ -31,6 +33,11 @@ export default function Sidebar() {
             </div> */}
             <div className="hero">
                 <img src={userImage} alt="" width={50} height={50} />
+                <div className="user-info">
+                    <span>{user}</span>
+                    <br/>
+                    <span>{status=== "administrator"? "Admin": status}</span>
+                </div>
             </div>
             <ul>
                 <li>
@@ -41,7 +48,7 @@ export default function Sidebar() {
                         }}
                     >   
                         <MdSpaceDashboard size="25px" className="icon"/>
-                        <span className="menu-item-name">Dashboard</span>
+                        <span className="item-name">Dashboard</span>
                     </NavLink>
                     <span className="tooltip">Dashboard</span>
                 </li>
@@ -53,12 +60,12 @@ export default function Sidebar() {
                         }}
                     >
                         <SiMicrosoftacademic size="25px" className="icon"/>
-                        <span className="menu-item-name">Exam</span>
+                        <span className="item-name">Exam</span>
                     </NavLink>
                     <span className="tooltip">Exam</span>
                 </li>
                 {
-                    status === "administrator" 
+                    status !== "agent" 
                     && 
                     <li>
                         <NavLink 
@@ -68,7 +75,7 @@ export default function Sidebar() {
                                 }}
                         >
                             <IoCreate size="25px" className="icon"/>
-                            <span className="menu-item-name">Compose</span>
+                            <span className="item-name">Compose</span>
                         </NavLink>
                         <span className="tooltip">Compose</span>
                     </li>
@@ -81,13 +88,13 @@ export default function Sidebar() {
                         }}
                     >
                         <BsFileEarmarkBarGraphFill size="25px" className="icon"/>
-                        <span className="menu-item-name">Results</span>
+                        <span className="item-name">Results</span>
                     </NavLink>
                     <span className="tooltip">Results</span>
                 </li>
                 { 
-                    status !== "agent" 
-                        &&   
+                    status === "administrator"
+                    &&   
                     <li>
                         <NavLink 
                             to="user-management"
@@ -96,7 +103,7 @@ export default function Sidebar() {
                             }}
                         >
                             <FaUser size="25px" className="icon"/>
-                            <span className="menu-item-name">Users</span>
+                            <span className="item-name">Users</span>
                         </NavLink>
                         <span className="tooltip">Users</span>
                     </li>

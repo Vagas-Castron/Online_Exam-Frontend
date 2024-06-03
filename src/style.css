@@ -13,7 +13,7 @@
     --accent-color: orange;
     --sidebar-bg-color: #12171e;
 
-    --humberger-width: 25px;
+    --humberger-width: 20px;
     --humberger-height: 4px;
     --width-x: calc((var(--humberger-height) * 5) * 1.41421356237);
 
@@ -54,12 +54,33 @@ header {
     grid-area: SH1;
     width: 80px;
     justify-self: center;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    text-wrap: nowrap;
+    transition: all 0.2s ease;
+}
+
+.logo-subheader.active {
+    width: 250px;
+    align-items: center;
+    justify-content: center;
+    /* gap: 0.25rem; */
+}
+
+.logo-subheader h2{
+    display: none;
+}
+
+.logo-subheader.active h2{
+    display: block;
 }
 
 .nav-subheader {
     grid-area: SH2;
     display: flex;
     justify-content: space-between;
+    padding: 0.5rem 2rem 0.5rem 0;
     align-items: center;
     align-self: center;
 }
@@ -180,6 +201,7 @@ footer {
 .floating{
     position: fixed;
     height: 80vh;
+    left: 5%;
     width: max(100%, 600px);
     z-index: 1;
     
@@ -581,6 +603,27 @@ button {
     width: 250px;
 }
 
+.sidebar .sidebar-menu .hero {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.75rem;
+    color: white;
+    text-wrap: nowrap;
+}
+
+.sidebar .sidebar-menu .hero .user-info {
+    display: none;
+}
+
+.sidebar .sidebar-menu .hero .user-info span{
+    margin-top: 0.25rem;
+}
+
+.sidebar.active .sidebar-menu .hero .user-info {
+    display: block;
+}
+
 .sidebar-menu {
     position: sticky;
     top: 0;
@@ -593,6 +636,7 @@ button {
 
 .sidebar-menu ul {
     list-style-type: none;
+    margin-top: 1.5rem;
 
 }
 
@@ -601,21 +645,63 @@ button {
     height: 50px;
     line-height: 50px;
     width: 90%;
-    text-align: center;
+    /* text-align: center; */
     margin: 0.8rem auto;
+    display: grid;
+    align-items: center;
 
 }
 
-.sidebar-menu ul li a {
+.sidebar .sidebar-menu ul li .tooltip{
+    position: absolute;
+    background-color: whitesmoke;
+    left: 80px;
+    bottom: 0% ;
+    height: 50px;
+    line-height: 50px;
+    width: 90%;
+    text-align: center;
+    margin: 0.8rem auto;
+    display: none;
+    
+}
+
+.sidebar .sidebar-menu ul li:hover .tooltip {
+    display: block
+}
+
+.sidebar.active .sidebar-menu ul li .tooltip{
+    display: none;
+
+}
+
+.sidebar .sidebar-menu ul li a {
     color: whitesmoke;
     border-radius: 0.8rem;
     padding: 0 0.8rem;
-    height: 50px;
-    line-height: 50px;
     text-decoration: none;
     transition: all 0.2s ease;
+    display: grid;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    position: relative
+}
+
+.sidebar .item-name {
+    display: none;
+    position: absolute;
+    left: 60px;
 
 }
+
+.sidebar.active .item-name {
+    display: block;
+}
+
+/* .sidebar.active .sidebar-menu ul li a {
+    justify-content: center;
+} */
 
 
 
@@ -624,66 +710,7 @@ button {
 }
 
 
-.sidebar-menu ul li .icon, .sidebar-menu ul li span {
-    line-height: 50px;
-}
 
-.sidebar-menu ul li span{
-    position: absolute;
-    padding-left: 1.75rem;
-}
-
-.sidebar-menu ul li a:hover{
-    background-color: whitesmoke;
-    color: var(--main-color);
-}
-
-.tooltip {
-    display: none;
-    position: absolute;
-    left: 70px;
-    top: 50%;
-    line-height: 40px;
-    transform: translateY(-50%);
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.192);
-    padding: 0.4rem;
-
-}
-
-.sidebar.active .sidebar-menu ul li:hover .tooltip {
-    display: none;
-}
-
-.sidebar.active .sidebar-menu ul li a span {
-    width: 200px;
-}
-
-.sidebar .sidebar-menu ul li:hover .tooltip {
-    display: block;
-}
-
-.top {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.5s ease;
-    padding: 0.25rem;
-}
-
-.sidebar.active .top {
-    justify-content: space-between;
-}
-
-.top .description {
-    display: none;
-    color: whitesmoke;
-}
-
-.sidebar.active .description {
-    display: block;
-}
 
 /* .menu-btn {
     border-radius: none;
@@ -809,6 +836,7 @@ button {
     flex-direction: column;
     align-items: center;
     gap: var(--humberger-height);
+    cursor: pointer;
     /* background-color: #333; */
     /* padding: 6px; */
     /* width: 40px; */

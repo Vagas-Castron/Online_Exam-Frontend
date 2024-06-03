@@ -17,6 +17,16 @@ function Header() {
     React.useEffect(() =>{
         console.log(location)
             setUserName(`${retrieveData()?.first_name} ${retrieveData()?.last_name}`);
+
+        const btn = document.querySelector("#toggleBtn")
+        const subheader = document.querySelector(".logo-subheader")
+
+        function toggle(){
+            subheader.classList.toggle("active")
+        }
+        
+        btn.addEventListener("click", toggle)
+        return () => btn.removeEventListener("click", toggle)
         
     }, [location])
 
@@ -29,7 +39,8 @@ function Header() {
     return (
         <header className="header-container">
             <div className="logo-subheader">
-                <img src={logo} alt="company logo" width={100} height={100}/>
+                <img src={logo} alt="company logo" width={75} height={75}/>
+                <h2>Utel Global</h2>
             </div>
             <div className="nav-subheader">
                 <label className="menu-btn" >

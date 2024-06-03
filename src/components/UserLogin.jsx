@@ -25,14 +25,28 @@ function UserLogin() {
 
     React.useEffect(()=>{
         storeData(authData)
-        if(authData?.success){
+        if(authData){
+            console.log("REDIRECT ION")
             if(authData.token){
                 storeData(authData)
-                if(authData.status?.toLowerCase() === "administrator"){
-                    navigate("/exam-creation")
-                }else{
-                    navigate("/exam")
+                switch(authData.status?.toLowerCase()){
+                    case "administrator":
+                        navigate("/user-management")
+                        break
+                    case "quality analyst":
+                        navigate("/exam-creation")
+                        break
+                    case "agent":
+                        navigate("/exam")
+                        break
+                    default:
+                        console.log("Status not found")
                 }
+                // if(authData.status?.toLowerCase() === "administrator"){
+                //     navigate("/exam-creation")
+                // }else{
+                //     navigate("/exam")
+                // }
             }
         }
         // if(retrieveData()?.token !== ""){
@@ -45,9 +59,9 @@ function UserLogin() {
         //         }
         //     }
         // }
-    },[authData, error])
+    },[authData])
 
-    console.log(retrieveData())
+    console.log(authData)
 
     function handleChange(event){
         setError(null)
@@ -81,7 +95,7 @@ function UserLogin() {
         authentication(userCredentials)
             .then(data => {
                 setAuthData(data)
-                navigate("/exam")
+                // return navigate("/exam")
             })
             .catch(err => setError(err))
             .finally(() => setStatus("idle"))
