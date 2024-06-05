@@ -1,7 +1,7 @@
 import React from "react"
 import { redirect, useActionData, useNavigate } from "react-router-dom"
 import UserForm from "./UserForm"
-import { retrieveData } from "../utils"
+import { localhost, retrieveData } from "../utils"
 import LoadingComponent from "./LoadingComponent"
 
 
@@ -22,7 +22,7 @@ export async function action({ request }){
         confirm_password: formData.get("confirm_password")
     }
     try{
-        const response = await fetch("http://localhost:8000/api/users/create-user", {
+        const response = await fetch(`http://${localhost}:8000/api/users/create-user`, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(userData)

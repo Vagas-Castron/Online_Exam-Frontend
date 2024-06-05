@@ -1,33 +1,33 @@
 import { redirect} from "react-router-dom"
 import { jwtDecode } from "jwt-decode"
 
+export const localhost = "192.168.0.155"
 
+// export async function examSubmit(resultData){
+//   try{
+//     const response = await fetch('http://localhost:80/api/results.php', {
+//       method: "POST",
+//       headers: {
+//         "content-type": "application/json"
+//       },
+//       body: JSON.stringify(resultData)
+//     })
+//     const data = await response.json()
+//     console.log(data)
 
-export async function examSubmit(resultData){
-  try{
-    const response = await fetch('http://192.168.0.145:80/api/results.php', {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify(resultData)
-    })
-    const data = await response.json()
-    console.log(data)
-
-    if(data.resubmit){
-      throw {
-        message: data.message
-      }
-    }
+//     if(data.resubmit){
+//       throw {
+//         message: data.message
+//       }
+//     }
     
-    console.log(data)
-  }catch(error){
-    throw {
-      message: error.message
-    }
-  }
-}
+//     console.log(data)
+//   }catch(error){
+//     throw {
+//       message: error.message
+//     }
+//   }
+// }
 
 
 export async function authentication( userCredentials ){
@@ -37,7 +37,7 @@ export async function authentication( userCredentials ){
   const jsonData = {"username": username, "password": password}
 
   try {
-      const response = await fetch('http://localhost:8000/api/users/auth', {
+      const response = await fetch(`http://${localhost}:8000/api/users/auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

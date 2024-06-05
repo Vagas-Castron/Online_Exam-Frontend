@@ -5,7 +5,7 @@ import examination from "../../assets/examination.json"
 import Timer from "../Timer"
 import Header from "../Header"
 import Question from "../Question"
-import { examSubmit, isAuthenticated, reformatFormData } from "../../utils"
+import { isAuthenticated, localhost, reformatFormData } from "../../utils"
 import { retrieveData } from '../../utils'
 import { MdOutlineCancel } from "react-icons/md"
 import { TbTrashXFilled } from "react-icons/tb"
@@ -71,7 +71,7 @@ export async function loader() {
             'Authorization': `Token ${token}`,
             // 'Content-Type': 'application/json'
         }
-        const response = await fetch('http://localhost:8000/api/exam/23',
+        const response = await fetch(`http://${localhost}:8000/api/exam/23`,
            {
                 method: 'GET',
                 headers: headers
@@ -233,7 +233,7 @@ function ExamPage(){
         }
         console.log(data)
         const token = retrieveData().token
-        fetch('http://localhost:8000/api/exam/result', {
+        fetch(`http://${localhost}:8000/api/exam/result`, {
             method: "POST",
             headers: {
                 'Content-Type': "application/json",

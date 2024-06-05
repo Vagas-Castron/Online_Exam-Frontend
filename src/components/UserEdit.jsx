@@ -1,7 +1,7 @@
 import React from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import UserForm from "./UserForm"
-import { retrieveData } from "../utils"
+import { localhost, retrieveData } from "../utils"
 
 
 
@@ -41,7 +41,7 @@ export default function UserEdit({ formTrigger, userData }) {
         event.preventDefault()
         console.log(userInfo)
         const token = retrieveData().token
-        fetch('http://localhost:8000/api/users/update-user', {
+        fetch(`http://${localhost}:8000/api/users/update-user`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -70,7 +70,7 @@ export default function UserEdit({ formTrigger, userData }) {
         try{
 
             if(userInfo.username !== username){
-                fetch('http://localhost:8000/api/users/update-user', {
+                fetch(`http://${localhost}:8000/api/users/update-user`, {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",

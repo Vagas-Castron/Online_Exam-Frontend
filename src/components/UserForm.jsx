@@ -22,7 +22,7 @@ import { MdCancel } from "react-icons/md"
 //         confirm_password: formData.get("confirm_password")
 //     }
 //     try{
-//         const response = fetch("http://localhost:8000/api/users/create-user", {
+//         const response = fetch("http://192.168.0.165:8000/api/users/create-user", {
 //             method: 'POST',
 //             headers: headers,
 //             body: JSON.stringify(userData)

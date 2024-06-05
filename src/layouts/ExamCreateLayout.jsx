@@ -3,7 +3,7 @@ import { redirect, Form, useNavigate, Link } from 'react-router-dom';
 import ExamCreatePage from '../components/exam-pages/ExamCreatePage';
 import ExamPreviewPage from '../components/exam-pages/ExamPreviewPage';
 import Header from "../components/Header"
-import { isAdminAuthenticated, isAuthenticated, retrieveData } from '../utils';
+import { isAdminAuthenticated, isAuthenticated, localhost, retrieveData } from '../utils';
 import { MdCancel } from "react-icons/md"
 import { IoIosAddCircleOutline } from "react-icons/io"
 import { MdOutlineCancel } from "react-icons/md"
@@ -24,7 +24,7 @@ export async function action({ request }) {
 
 
     try {
-        const response = await fetch('http://localhost:8000/api/exam/compose', {
+        const response = await fetch(`http://${localhost}:8000/api/exam/compose`, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(data)

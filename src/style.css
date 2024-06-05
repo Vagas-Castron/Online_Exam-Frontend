@@ -269,6 +269,7 @@ input[id="point-input"] {
     margin: 0.15rem auto;
 }
 
+
 .user-in {
     background-color: green;
 }
@@ -325,6 +326,29 @@ input[id="point-input"] {
     background-color: var(--bg-color);
     display: flex;
     flex-direction: column;
+}
+
+.filter {
+    box-shadow: none;
+    margin: 1rem auto 1rem;
+    width: max(70%, 600px)
+}
+
+.filter fieldset div {
+    display: flex;
+    gap: 0.12rem;
+    align-items: center;
+}
+
+.filter fieldset {
+    display: flex;
+    gap: 1rem;
+    border: none;
+    padding: 1rem;
+}
+
+.filter legend {
+    font-size: 18px;
 }
 
 .log-in {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLoaderData, Link, redirect } from 'react-router-dom'
-import { isAuthenticated, retrieveData } from '../utils'
+import { isAuthenticated, localhost, retrieveData } from '../utils'
 import { MdNoteAdd } from "react-icons/md"
 import ExamCreateLayout from '../layouts/ExamCreateLayout'
 
@@ -11,7 +11,7 @@ export async function loader(){
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json'
         }
-        const response = await fetch('http://localhost:8000/api/exam/all',
+        const response = await fetch(`http://${localhost}:8000/api/exam/all`,
            {
                 method: 'GET',
                 headers: headers

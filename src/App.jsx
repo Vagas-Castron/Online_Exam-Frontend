@@ -22,8 +22,8 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />} >
-          <Route index element={<UserLogin />} errorElement={<ErrorComponent/>}/>
-          <Route element={<ContentLayout />} errorElement={<ErrorComponent/>}>
+          <Route index element={<UserLogin />}/>
+          <Route element={<ContentLayout />} >
             <Route path="dashboard" element={<h1>Dashboard Goes Here</h1>} />
             <Route path="exam" element={<ExamPage />} loader={examLoader}/>
             <Route path="exam-creation" element={<AllExamcontainer/>} loader={allExamLoader}  />

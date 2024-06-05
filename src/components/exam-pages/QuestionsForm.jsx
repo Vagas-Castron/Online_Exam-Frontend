@@ -3,7 +3,7 @@ import { MdOutlineCancel } from "react-icons/md"
 import { TbTrashXFilled } from "react-icons/tb"
 
 //exam page
-function ExamOption({ option, questionId, optionId, removeOption }) {
+export function ExamOption({ option, questionId, optionId, removeOption }) {
     function optionLetter(optionId){
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         return letters[optionId]
@@ -27,7 +27,7 @@ function ExamOption({ option, questionId, optionId, removeOption }) {
                 type="text"
                 name={`option-${questionId}${optionLetter(optionId - 1)}`}
                 placeholder={`Option ${optionId}`}
-                value={option? option.text: ""} 
+                value={option && option.text} 
                 readOnly={!!option}
             />
             {   
