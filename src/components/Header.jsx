@@ -15,7 +15,6 @@ function Header() {
     const navigate = useNavigate()
 
     React.useEffect(() =>{
-        console.log(location)
             setUserName(`${retrieveData()?.first_name} ${retrieveData()?.last_name}`);
 
         const btn = document.querySelector("#toggleBtn")

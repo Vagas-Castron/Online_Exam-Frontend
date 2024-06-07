@@ -219,7 +219,7 @@ form {
 
 }
 
-input, textarea {
+input, textarea, select {
     font-size: 16px;
     padding: 5px;
     border: none;
@@ -331,20 +331,15 @@ input[id="point-input"] {
 .filter {
     box-shadow: none;
     margin: 1rem auto 1rem;
-    width: max(70%, 600px)
-}
-
-.filter fieldset div {
+    width: max(70%, 600px);
     display: flex;
-    gap: 0.12rem;
-    align-items: center;
-}
-
-.filter fieldset {
-    display: flex;
+    flex-direction: row;
     gap: 1rem;
-    border: none;
-    padding: 1rem;
+}
+
+.filter label {
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .filter legend {

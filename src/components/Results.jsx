@@ -65,7 +65,7 @@ export default function Result(){
     const status = retrieveData().status
 
     return (
-        status === "agent"? <AgentResult data={data}/>: <AllResult data={data}/>
+        status === "agent"? <AgentResult data={data}/>: <AllResult resultData={data}/>
     )
 
 }

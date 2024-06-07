@@ -35,21 +35,40 @@ export async function loader(){
 export default function AllUsersContainer(){
     const [formTrigger, setFormTrigger] = React.useState(false)
     const [formData, setFormData] = React.useState({
-        username: "",
-        name: "",
-        status: ""
+        filter_type: "first_name",
+        filter: ""
     })
     const [loading, setLoading] = React.useState(false)
-    const data = useLoaderData()
+    const [ data, setData] = React.useState(useLoaderData())
     const location = useLocation()
     const username = location.state
-    console.log(location)
     function handleClick(event){
         setFormTrigger( prevState => !prevState)
     }
 
+    React.useEffect(() => {
+        const token = retrieveData()?.token
+        const headers = {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'application/json'
+        }
+        console.log(formData)
+        
+        fetch(`http://${localhost}:8000/api/users/all`,
+           {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(formData)
+            },
+        )
+        .then(response => response.json())
+        .then(data => setData(data))
+
+    }, [formData])
+
     function handleChange(event){
         const { name, value } = event.target
+        console.log(name)
         setFormData(
             prevData => {
                 return {
@@ -58,7 +77,10 @@ export default function AllUsersContainer(){
                 }
             }
         )
+
+
     }
+
 
     return (
         <>
@@ -73,44 +95,22 @@ export default function AllUsersContainer(){
             
             <div>
             <form method="post" className="filter">
-                    <fieldset>
+                    {/* <fieldset> */}
 
-                        <legend>Filter By</legend>
-
-                            <div>
-                                <label>
-                                    User: 
-                                </label>
+                        <lable for="filter">Filter By</lable>
+                                <select name="filter_type"  onChange={e => handleChange(e)}>
+                                    <option value="username">Username</option>
+                                    <option value="first_name" selected={true}>First Name</option>
+                                    <option value="last_name">Last Name</option>
+                                    <option value="status">Status</option>
+                                </select>
                                 <input 
                                     type="text"
-                                    name="username"
-                                    placeholder="Username" 
-                                    onChange={e => handleChange(e)}
-                                />
-                            </div>
-                            <div>
-                                <label>
-                                    Name: 
-                                </label>
-                                <input 
-                                    type="text"
-                                    name="name" 
+                                    name="filter" 
                                     placeholder="Name"
                                     onChange={e => handleChange(e)}
                                 />
-                            </div>
-                            <div>
-                                <label>
-                                    Status: 
-                                </label>
-                                <input 
-                                    type="text"
-                                    name="status" 
-                                    placeholder="Status"
-                                    onChange={e => handleChange(e)}
-                                />
-                            </div>
-                    </fieldset>
+                    {/* </fieldset> */}
                         
                 
                 </form>
