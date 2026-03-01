@@ -60,7 +60,7 @@ Axios is used to send HTTP requests and handle responses.
 
 1️⃣ Clone the repository
 
-git clone https://github.com/yourusername/Online_Examination_System-Frontend.git
+git clone https://github.com/yourusername/Online_Exam-Frontend.git
 
 cd online-exam-frontend
 
