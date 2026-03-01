@@ -57,17 +57,25 @@ GET /api/results/
 Axios is used to send HTTP requests and handle responses.
 
 ⚙️ Installation & Setup
+
 1️⃣ Clone the repository
+
 git clone https://github.com/yourusername/online-exam-frontend.git
+
 cd online-exam-frontend
+
 2️⃣ Install dependencies
+
 npm install
+
 3️⃣ Configure API Base URL
 
 Create a .env file:
 
 VITE_API_BASE_URL=http://127.0.0.1:8000/api
+
 4️⃣ Run development server
+
 npm run dev
 
 App runs at:
